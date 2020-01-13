@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+svg {
+  overflow: visible;
+  margin: 20px;
+  display: block;
+  max-width: 800px;
+}
+
+marker {
+  overflow: visible;
+}
+
+path {
+  stroke-linecap: round;
+  fill: none;
+}
+
+.GridLine {
+  stroke: #eee;
+}
+
+#arrow path,
+.Vector {
+  stroke: #abc;
+  fill: #abc;
+}
+
+.Line {
+  stroke-width: 5;
+}
