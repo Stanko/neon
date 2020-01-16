@@ -23,9 +23,10 @@ export default function Grid({
     verticalSet.forEach((vector, y) => {
       const xCoordinate = x * gridStep;
       const yCoordinate = y * gridStep;
+      
       vectorElements.push(
         <path 
-          key={ `vector${ x }${ y }` }
+          key={ `vector-${ x }-${ y }` }
           className="Vector"
           d={ `M ${ xCoordinate } ${ yCoordinate } L ${ (xCoordinate + vector.x).toFixed(2) } ${ (yCoordinate + vector.y).toFixed(2) }` } 
           markerEnd="url(#arrow)"

@@ -11,12 +11,12 @@ export default class App extends Component {
   constructor() {
     super();
 
-    const gridSize = 10;
+    const gridSize = 15;
     const gridStep = 50;
     const maxVectorVelocity = gridStep;
-    
+
     this.state = {
-      debug: true,
+      debug: false,
       gridSize,
       gridStep,
       lines: [],
@@ -45,6 +45,30 @@ export default class App extends Component {
     this.setState({
       vectors: generateVectors(gridSize, maxVectorVelocity),
       lines: [],
+    });
+  }
+
+  generateLines = () => {
+    const {
+      gridSize, 
+      gridStep,
+      svgSize,
+      vectors,
+    } = this.state;
+    
+    const lines = [];
+
+    for (let i = 0; i < 100; i++) {
+      const startingPoint = {
+        x: Math.round(Math.random() * svgSize / 4) + 5,
+        y: Math.round(Math.random() * (svgSize - 10)) + 5,      
+      };
+
+      lines.push(generateLine(startingPoint, vectors, gridSize, gridStep));
+    }
+
+    this.setState({
+      lines,
     });
   }
 
@@ -85,9 +109,10 @@ export default class App extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div className="App">
         <button onClick={ this.toggleDebug }>Toggle debug mode</button>
         <button onClick={ this.regenerateVectors }>Regenerate vectors</button>
+        <button onClick={ this.generateLines }>Generate lines</button>
         <svg 
           viewBox={ `0 0 ${ svgSize } ${ svgSize }` }
           onClick={ this.addLine }
@@ -105,8 +130,12 @@ export default class App extends Component {
                 gridStep={ gridStep }
               />
             </Fragment> }
-            { lines.map(line => (
-                <Line key={ line } points={ line } />
+            { lines.map((line, index) => (
+                <Line 
+                  key={ index } 
+                  points={ line }
+                  strokeWidth={ line.strokeWidth }
+                />
               )) }
         </svg>
       </div>

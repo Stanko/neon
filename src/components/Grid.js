@@ -11,7 +11,7 @@ export default function Grid({
 
     lines.push(
       <path
-        key={`x${i}`}
+        key={`x${ i }`}
         className="GridLine"
         d={ `M 0 ${ coordinate } L ${ svgSize } ${ coordinate }` } 
       />
@@ -19,7 +19,7 @@ export default function Grid({
     
     lines.push(
       <path
-        key={`y${i}`}
+        key={`y${ i }`}
         className="GridLine"
         d={ `M ${ coordinate } 0 L ${ coordinate } ${ svgSize }` } 
       />

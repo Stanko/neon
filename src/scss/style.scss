@@ -1,14 +1,29 @@
+$background-color: #232528;
+$border-color: #333;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+body {
+  background: $background-color;
+}
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 svg {
   overflow: visible;
   margin: 20px;
   display: block;
-  max-width: 800px;
+  box-shadow: 
+    0 0 0 1px $border-color,
+    0 0 0 5px $background-color, 0 0 0 6px $border-color,
+    0 0 0 10px $background-color, 0 0 0 11px $border-color;
 }
 
 marker {
@@ -21,15 +36,14 @@ path {
 }
 
 .GridLine {
-  stroke: #eee;
+  // stroke: #292929;
 }
 
 #arrow path,
 .Vector {
-  stroke: #abc;
-  fill: #abc;
+  stroke: #444;
+  fill: #444;
 }
 
 .Line {
-  stroke-width: 5;
 }

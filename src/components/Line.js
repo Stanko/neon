@@ -80,6 +80,7 @@ export default class Line extends Component {
   render() {
     const { 
       points, 
+      strokeWidth,
     } = this.props;
 
     // build the d attributes by looping over the points
@@ -90,11 +91,14 @@ export default class Line extends Component {
 
       return `${ acc } ${ bezierCommand(point, i, a) }`;
     }, "");
-    
-    console.log(d)
 
     return (
-      <path className="Line" stroke={ this.color } d={ d } />
+      <path 
+        className="Line" 
+        stroke={ this.color } 
+        strokeWidth={ strokeWidth || 5 }
+        d={ d }
+      />
     );
   }
 }

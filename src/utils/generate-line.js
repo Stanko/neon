@@ -69,15 +69,16 @@ function getNextPoint(currentPoint, line, vectors, gridSize, gridStep) {
 
   line.push(nextPoint);
 
-  // TODO Parametrize
-  // if (
-  //   nextPoint.x > size * 1.1 ||
-  //   nextPoint.y > size * 1.1 ||
-  //   nextPoint.x < size * -0.1 ||
-  //   nextPoint.y < size * -0.1
-  // ) {
-  //   return;
-  // }
+  const size = gridSize * gridStep;
+  const offset = 0.1 * size;
+  if (
+    nextPoint.x > (size + offset) ||
+    nextPoint.y > (size + offset) ||
+    nextPoint.x < -offset ||
+    nextPoint.y < -offset
+  ) {
+    return;
+  }
 
   if (line.length < 100) {
     getNextPoint(nextPoint, line, vectors, gridSize, gridStep);
@@ -88,6 +89,9 @@ export default function generateLine(startingPoint, vectors, gridSize, gridStep)
   const line = [startingPoint];
 
   getNextPoint(startingPoint, line, vectors, gridSize, gridStep);
+
+  const width = 5;
+  line.strokeWidth = Math.random() * width + 1;
 
   return line;
 }
