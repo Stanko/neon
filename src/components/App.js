@@ -16,7 +16,7 @@ export default class App extends Component {
     const maxVectorVelocity = gridStep;
 
     this.state = {
-      debug: true,
+      debug: false,
       gridSize,
       gridStep,
       lines: [],
@@ -35,6 +35,10 @@ export default class App extends Component {
         });
       }
     });
+  }
+
+  componentDidMount() {
+    this.generateLines();
   }
 
   toggleDebug = () => {
@@ -61,8 +65,7 @@ export default class App extends Component {
 
     this.setState({
       vectors: generateVectors(gridSize, maxVectorVelocity),
-      lines: [],
-    });
+    }, this.recalculateLines);
   }
 
   generateLines = () => {
@@ -75,9 +78,9 @@ export default class App extends Component {
     
     const lines = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 200; i++) {
       const startingPoint = {
-        x: Math.round(Math.random() * svgSize / 4) + 5,
+        x: Math.round(Math.random() * (svgSize - 10)) + 5,      
         y: Math.round(Math.random() * (svgSize - 10)) + 5,      
       };
 
@@ -133,7 +136,6 @@ export default class App extends Component {
       vectors, 
       gridSize, 
       gridStep,
-      debug,
     } = this.state;
 
     const newLines = lines.map(line => {

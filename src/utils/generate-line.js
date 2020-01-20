@@ -31,7 +31,7 @@ function multiplyVector(v, factor) {
 function getNextPoint(currentPoint, line, vectors, gridSize, gridStep) {
   const nearVectors = [];
 
-  const searchRadiusFactor = 1.5;
+  const searchRadiusFactor = 5;
 
   for (let x = 0; x <= gridSize; x++) {
     const xCoordinate = x * gridStep;
@@ -63,7 +63,7 @@ function getNextPoint(currentPoint, line, vectors, gridSize, gridStep) {
 
     nextPoint = addVectors(
       nextPoint,
-      multiplyVector(vector.vector, searchRadiusFactor - distance)
+      multiplyVector(vector.vector, distance / (searchRadiusFactor * 10))
     );
   });
 

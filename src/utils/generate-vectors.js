@@ -3,7 +3,7 @@ function getRandomVector(maxVectorVelocity) {
   const ySign = Math.random() > 0.5 ? 1 : -1;
 
   const directionVector = {
-    x: maxVectorVelocity * 0.5,
+    x: maxVectorVelocity * 0.1,
     y: 0,
   };
 
@@ -35,7 +35,7 @@ export default function generateVectors(gridSize, maxVectorVelocity) {
     vectors[x] = [];
 
     for (let y = 0; y <= gridSize; y++) {
-      vectors[x][y] = getRandomVector3(maxVectorVelocity);
+      vectors[x][y] = getRandomVector(maxVectorVelocity);
     }
   }
 
