@@ -13,6 +13,14 @@ function getRandomVector(maxVectorVelocity) {
   };
 }
 
+function getRandomVector3(maxVectorVelocity) {
+  return {
+    x: maxVectorVelocity * 0.5,
+    y: 0,
+  };
+}
+
+
 function getRandomVector2(maxVectorVelocity) {
   return {
     x: (Math.random() * 0.2) * maxVectorVelocity,
@@ -27,7 +35,7 @@ export default function generateVectors(gridSize, maxVectorVelocity) {
     vectors[x] = [];
 
     for (let y = 0; y <= gridSize; y++) {
-      vectors[x][y] = getRandomVector2(maxVectorVelocity);
+      vectors[x][y] = getRandomVector3(maxVectorVelocity);
     }
   }
 

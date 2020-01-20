@@ -85,13 +85,13 @@ function getNextPoint(currentPoint, line, vectors, gridSize, gridStep) {
   }
 }
 
-export default function generateLine(startingPoint, vectors, gridSize, gridStep) {
+export default function generateLine(startingPoint, vectors, gridSize, gridStep, strokeWidth = null) {
   const line = [startingPoint];
 
   getNextPoint(startingPoint, line, vectors, gridSize, gridStep);
 
   const width = 5;
-  line.strokeWidth = Math.random() * width + 1;
+  line.strokeWidth = strokeWidth || Math.random() * width + 1;
 
   return line;
 }

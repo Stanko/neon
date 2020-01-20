@@ -36,13 +36,25 @@ path {
 }
 
 .GridLine {
-  // stroke: #292929;
+  stroke: #444;
 }
 
-#arrow path,
+
 .Vector {
-  stroke: #444;
-  fill: #444;
+  stroke: #cde;
+  stroke-width: 3;
+}
+
+.Vector--selected {
+  stroke: blue;
+}
+
+#marker-circle circle {
+  fill: blue;
+}
+
+#marker-arrow path{
+  fill: #cde;
 }
 
 .Line {

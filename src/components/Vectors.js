@@ -1,39 +1,68 @@
-import React from "react";
+import React, { Component } from "react";
 
-export default function Grid({
-  gridStep,
-  vectors,
-}) {
-  const vectorElements = [
-    <marker 
-      key="marker"
-      id="arrow" 
-      viewBox="0 0 10 10" 
-      refX="5" 
-      refY="5"
-      markerWidth="5" 
-      markerHeight="5"
-      orient="auto-start-reverse"
-    >
-      <path d="M 0 0 L 10 5 L 0 10 Z" />
-    </marker>
-  ];
+export default class Vectors extends Component {
+  handleClick = (x, y) => {
+    const {
+      selectVector,
+    } = this.props;
 
-  vectors.forEach((verticalSet, x) => {
-    verticalSet.forEach((vector, y) => {
-      const xCoordinate = x * gridStep;
-      const yCoordinate = y * gridStep;
-      
-      vectorElements.push(
-        <path 
-          key={ `vector-${ x }-${ y }` }
-          className="Vector"
-          d={ `M ${ xCoordinate } ${ yCoordinate } L ${ (xCoordinate + vector.x).toFixed(2) } ${ (yCoordinate + vector.y).toFixed(2) }` } 
-          markerEnd="url(#arrow)"
-        />
-      );
+    return e => {
+      selectVector(x, y);
+    };
+  }
+
+  render() {
+    const {
+      gridStep,
+      vectors,
+      selectedVector,
+    } = this.props;
+
+    const vectorElements = [
+      <marker 
+        key="marker-arrow"
+        id="marker-arrow" 
+        viewBox="0 0 6 6" 
+        refX="3" 
+        refY="3"
+        markerWidth="2" 
+        markerHeight="2"
+        orient="auto-start-reverse"
+      >
+        <path d="M 0 0 L 6 3 L 0 6 Z" />
+      </marker>,
+      <marker 
+        key="marker-circle"
+        id="marker-circle" 
+        viewBox="0 0 6 6" 
+        markerWidth="3" 
+        markerHeight="3"
+        orient="auto-start-reverse"
+      >
+        <circle r="3" dx="3" dy="3" />
+      </marker>
+    ];
+
+    vectors.forEach((verticalSet, x) => {
+      verticalSet.forEach((vector, y) => {
+        const xCoordinate = x * gridStep;
+        const yCoordinate = y * gridStep;
+
+        const isSelected = x === selectedVector.x && y === selectedVector.y;
+        
+        vectorElements.push(
+          <path 
+            onMouseDown={ this.handleClick(x, y) }
+            key={ `vector-${ x }-${ y }` }
+            className={ `Vector ${ isSelected ? 'Vector--selected' : null }` }
+            d={ `M ${ xCoordinate } ${ yCoordinate } L ${ (xCoordinate + vector.x).toFixed(2) } ${ (yCoordinate + vector.y).toFixed(2) }` } 
+            markerEnd={ `url(#marker-${ isSelected ? 'circle' : 'arrow' })` }
+          />
+        );
+      });
     });
-  });
+    
 
-  return vectorElements;
+    return vectorElements;
+  }
 }

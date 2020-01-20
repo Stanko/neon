@@ -16,14 +16,25 @@ export default class App extends Component {
     const maxVectorVelocity = gridStep;
 
     this.state = {
-      debug: false,
+      debug: true,
       gridSize,
       gridStep,
       lines: [],
       maxVectorVelocity,
       svgSize: gridSize * gridStep,
       vectors: generateVectors(gridSize, maxVectorVelocity),
+      selectedVector: {},
     };
+
+    const ESC = 27;
+    window.addEventListener('keydown', e => {
+      if (e.keyCode === ESC ){
+        e.preventDefault();
+        this.setState({
+          selectedVector: {},
+        });
+      }
+    });
   }
 
   toggleDebug = () => {
@@ -33,6 +44,12 @@ export default class App extends Component {
 
     this.setState({
       debug: !debug,
+    });
+  }
+
+  selectVector = (x, y) => {
+    this.setState({
+      selectedVector: { x, y },
     });
   }
 
@@ -72,12 +89,8 @@ export default class App extends Component {
     });
   }
 
-  addLine = e => {
+  getSvgCoords(e) {
     const {
-      lines,
-      vectors, 
-      gridSize, 
-      gridStep,
       svgSize,
     } = this.state;
 
@@ -86,10 +99,26 @@ export default class App extends Component {
     const y = e.pageY - (rect.top + window.pageYOffset);
     const factor = rect.width / svgSize;
   
-    const startingPoint = {
+    return {
       x: x / factor,
       y: y / factor
     };
+  }
+
+  addLine = e => {
+    const {
+      lines,
+      vectors, 
+      gridSize, 
+      gridStep,
+      debug,
+    } = this.state;
+
+    if (debug) {
+      return;
+    }
+
+    const startingPoint = this.getSvgCoords(e);
 
     const line = generateLine(startingPoint, vectors, gridSize, gridStep);
 
@@ -98,6 +127,71 @@ export default class App extends Component {
     })
   }
 
+  recalculateLines = () => {
+    const {
+      lines,
+      vectors, 
+      gridSize, 
+      gridStep,
+      debug,
+    } = this.state;
+
+    const newLines = lines.map(line => {
+      return generateLine(line[0], vectors, gridSize, gridStep, line.strokeWidth);
+    });
+
+    this.setState({
+      lines: newLines,
+    });
+  }
+
+  handleMouseDown = e => {
+    const {
+      debug,
+      selectedVector,
+    } = this.state;
+
+    if (debug && selectedVector) {
+      this.setState({
+        mousePressed: true,
+      });
+    }
+  }
+
+  handleMouseUp = e => {
+    this.setState({
+      mousePressed: false,
+    });
+  }
+
+  handleMouseMove = e => {
+    const {
+      debug,
+      mousePressed,
+      selectedVector,
+      vectors,
+      gridStep,
+    } = this.state;
+
+    if (!debug || !mousePressed) {
+      return;
+    }
+
+    const endPoint = this.getSvgCoords(e);
+    const vector = {
+      x: endPoint.x - selectedVector.x * gridStep,
+      y: endPoint.y - selectedVector.y * gridStep,
+    };
+    vectors[selectedVector.x][selectedVector.y] = vector;
+
+    clearTimeout(this.recalculateLinesTimeout);
+    this.setState({
+      vectors: [ ...vectors ]
+    }, () => {
+      this.recalculateLinesTimeout = setTimeout(this.recalculateLines, 250);
+    });
+  }
+  
   render() {
     const {
       debug,
@@ -106,6 +200,7 @@ export default class App extends Component {
       svgSize,
       vectors,
       lines,
+      selectedVector,
     } = this.state;
 
     return (
@@ -116,8 +211,18 @@ export default class App extends Component {
         <svg 
           viewBox={ `0 0 ${ svgSize } ${ svgSize }` }
           onClick={ this.addLine }
+          onMouseDown={ this.handleMouseDown }
+          onMouseUp={ this.handleMouseUp }
+          onMouseMove={ this.handleMouseMove }
           ref={ el => this.svgElement = el }
         >
+          { lines.map((line, index) => (
+              <Line 
+                key={ index } 
+                points={ line }
+                strokeWidth={ line.strokeWidth }
+              />
+            )) }
           { debug &&
             <Fragment>
               <Grid 
@@ -125,18 +230,13 @@ export default class App extends Component {
                 svgSize={ svgSize }
                 gridStep={ gridStep }
               /> 
-              <Vectors 
+              <Vectors
+                selectVector={ this.selectVector }
+                selectedVector={ selectedVector }
                 vectors={ vectors }
                 gridStep={ gridStep }
               />
             </Fragment> }
-            { lines.map((line, index) => (
-                <Line 
-                  key={ index } 
-                  points={ line }
-                  strokeWidth={ line.strokeWidth }
-                />
-              )) }
         </svg>
       </div>
     );
