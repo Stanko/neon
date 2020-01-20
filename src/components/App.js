@@ -216,6 +216,12 @@ export default class App extends Component {
           onMouseMove={ this.handleMouseMove }
           ref={ el => this.svgElement = el }
         >
+         { debug &&
+            <Grid 
+              gridSize={ gridSize }
+              svgSize={ svgSize }
+              gridStep={ gridStep }
+            /> }
           { lines.map((line, index) => (
               <Line 
                 key={ index } 
@@ -224,19 +230,12 @@ export default class App extends Component {
               />
             )) }
           { debug &&
-            <Fragment>
-              <Grid 
-                gridSize={ gridSize }
-                svgSize={ svgSize }
-                gridStep={ gridStep }
-              /> 
-              <Vectors
-                selectVector={ this.selectVector }
-                selectedVector={ selectedVector }
-                vectors={ vectors }
-                gridStep={ gridStep }
-              />
-            </Fragment> }
+            <Vectors
+              selectVector={ this.selectVector }
+              selectedVector={ selectedVector }
+              vectors={ vectors }
+              gridStep={ gridStep }
+            /> }
         </svg>
       </div>
     );
