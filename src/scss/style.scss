@@ -13,97 +13,26 @@ body {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-
 .App {
-  max-width: 800px;
+  display: flex;
+  width: 100%;
   margin: 0 auto;
+  max-width: 1500px;
   padding: 20px;
 }
 
 .Controls {
-  z-index: 10;
-  position: relative;
+  order: 1;
+  flex-basis: 400px;
+  flex-shrink: 0;
 }
 
-button {
-  border: 1px solid #444;
-  background: #232528;
-  display: inline-block;
-  margin: 10px 5px 0 0;
-  font-size: 14px;
-  border-radius: 50px;
-  padding: 6px 18px;
-  transition: all 300ms;
-  outline: none;
-  color: #999;
-
-  &:hover {
-    color: #BBB;
-    border-color: #555;
-    cursor: pointer;
-  }
-  
-  &:active {
-    transform: translateY(1px);
-  }
-  
-  &:focus {
-    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666,
-  }
-}
-
-input[type=text] {
-  border: none;
-  border-bottom: 1px solid #444;
-  background: #232528;
-  display: inline-block;
-  margin: 10px 5px 0 0;
-  font-size: 14px;
-  padding: 6px 0;
-  transition: all 300ms;
-  outline: none;
-  color: #999;
-  width: 100px;
-
-  &:hover {
-    color: #BBB;
-    border-color: #555;
-    cursor: pointer;
-  }
-  
-  &:active {
-    transform: translateY(1px);
-  }
-  
-  &:focus {
-    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666,
-  }
-}
-
-p {
-  margin-bottom: 10px;;
-}
-
-a {
-  color: #ddd;
-
-  &:hover {
-    color: #BBB;
-    cursor: pointer;
-  }
-  
-  &:active {
-    transform: translateY(1px);
-  }
-  
-  &:focus {
-    color: #BBB;
-  }
+.Image {
+  margin-right: 50px;
 }
 
 svg {
   overflow: visible;
-  margin: 50px 10px;
   display: block;
   box-shadow: 
     0 0 0 1px $border-color,
@@ -121,7 +50,7 @@ path {
 }
 
 .GridLine {
-  stroke: #444;
+  stroke: $border-color;
 }
 
 
@@ -143,5 +72,27 @@ path {
   fill: #def;
 }
 
-.Line {
+.Controls {
+  background: $background-color;
+}
+
+.Control {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.Control-label {
+  flex-basis: 100%;
+  margin-bottom: 10px;;
+}
+
+.Control-inputWrapper {
+  flex-basis: 33.33%;
+  flex-shrink: 0;
+}
+.Control-value {
+  flex-basis: 33.33%;
+  text-align: right;
+  flex-shrink: 0;
 }

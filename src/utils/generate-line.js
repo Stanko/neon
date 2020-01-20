@@ -1,4 +1,10 @@
-import generateRandomColor from "./generate-random-color";
+import seedrandom from "seedrandom";
+
+function generateRandomColor(rng) {
+  const h = parseInt((rng() * 360 + 220) % 360, 10);
+
+  return `hsl(${ h }, 70%, 60%)`;
+}
 
 function isDotInCircle(dot, circleCenter, radius) {
   const x = dot.x - circleCenter.x;
@@ -28,19 +34,25 @@ function multiplyVector(v, factor) {
   };
 }
 
-function getNextPoint(currentPoint, line, vectors, gridSizeX, gridSizeY, gridStep) {
+function getNextPoint(
+  currentPoint,
+  line,
+  vectors,
+  gridSizeX,
+  gridSizeY,
+  gridStep,
+  searchRadiusFactor
+) {
   const nearVectors = [];
-
-  const searchRadiusFactor = 5;
 
   for (let x = 0; x <= gridSizeX; x++) {
     const xCoordinate = x * gridStep;
 
     for (let y = 0; y <= gridSizeY; y++) {
       const yCoordinate = y * gridStep;
-      const start = { 
-        x: xCoordinate, 
-        y: yCoordinate, 
+      const start = {
+        x: xCoordinate,
+        y: yCoordinate
       };
 
       if (isDotInCircle(start, currentPoint, gridStep * searchRadiusFactor)) {
@@ -74,8 +86,8 @@ function getNextPoint(currentPoint, line, vectors, gridSizeX, gridSizeY, gridSte
   const offsetX = 0.1 * width;
   const offsetY = 0.1 * height;
   if (
-    nextPoint.x > (width + offsetX) ||
-    nextPoint.y > (height + offsetY) ||
+    nextPoint.x > width + offsetX ||
+    nextPoint.y > height + offsetY ||
     nextPoint.x < -offsetX ||
     nextPoint.y < -offsetY
   ) {
@@ -83,18 +95,34 @@ function getNextPoint(currentPoint, line, vectors, gridSizeX, gridSizeY, gridSte
   }
 
   if (line.length < 100) {
-    getNextPoint(nextPoint, line, vectors, gridSizeX, gridSizeY, gridStep);
+    getNextPoint(nextPoint, line, vectors, gridSizeX, gridSizeY, gridStep, searchRadiusFactor);
   }
 }
 
-export default function generateLine(startingPoint, vectors, gridSizeX, gridSizeY, gridStep, strokeWidth = null) {
+export default function generateLine(
+  startingPoint,
+  vectors,
+  numberOfColumns,
+  numberOfRows,
+  blockSize,
+  colorRng,
+  searchRadiusFactor,
+  strokeWidth = null
+) {
   const line = [startingPoint];
 
-  getNextPoint(startingPoint, line, vectors, gridSizeX, gridSizeY, gridStep);
+  getNextPoint(startingPoint, line, vectors, numberOfColumns, numberOfRows, blockSize, searchRadiusFactor);
 
-  const width = 5;
-  line.strokeWidth = strokeWidth || Math.random() * width + 1;
+  const maxWidth = 5;
+  
+  const widthRng = seedrandom(line.join(''));
+
+  if (!strokeWidth) {
+    strokeWidth = widthRng() * maxWidth + 1;
+  }
+  
+  line.strokeWidth = strokeWidth;
+  line.color = generateRandomColor(colorRng);
 
   return line;
 }
-

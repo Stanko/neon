@@ -1,21 +1,10 @@
 import React, { Component } from "react";
 
 export default class Vectors extends Component {
-  handleClick = (x, y) => {
-    const {
-      selectVector,
-    } = this.props;
-
-    return e => {
-      selectVector(x, y);
-    };
-  }
-
   render() {
     const {
-      gridStep,
+      blockSize,
       vectors,
-      selectedVector,
     } = this.props;
 
     const vectorElements = [
@@ -45,18 +34,15 @@ export default class Vectors extends Component {
 
     vectors.forEach((verticalSet, x) => {
       verticalSet.forEach((vector, y) => {
-        const xCoordinate = x * gridStep;
-        const yCoordinate = y * gridStep;
+        const xCoordinate = x * blockSize;
+        const yCoordinate = y * blockSize;
 
-        const isSelected = x === selectedVector.x && y === selectedVector.y;
-        
         vectorElements.push(
           <path 
-            onMouseDown={ this.handleClick(x, y) }
             key={ `vector-${ x }-${ y }` }
-            className={ `Vector ${ isSelected ? 'Vector--selected' : null }` }
+            className='Vector'
             d={ `M ${ xCoordinate } ${ yCoordinate } L ${ (xCoordinate + vector.x).toFixed(2) } ${ (yCoordinate + vector.y).toFixed(2) }` } 
-            markerEnd={ `url(#marker-${ isSelected ? 'circle' : 'arrow' })` }
+            markerEnd='url(#marker-arrow)' 
           />
         );
       });

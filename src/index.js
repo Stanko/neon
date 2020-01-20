@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./components/App";
+import Controls from "./components/Controls";
 
 import "./scss/style.scss";
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<Controls />, document.getElementById('app'));

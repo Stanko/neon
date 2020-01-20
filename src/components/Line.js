@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import generateRandomColor from "../utils/generate-random-color";
 
 // https://medium.com/@francoisromain/smooth-a-svg-path-with-cubic-bezier-curves-e37b49d46c74
 
@@ -62,25 +61,12 @@ const bezierCommand = (point, i, a) => {
   return `C ${cps.x},${cps.y} ${cpe.x},${cpe.y} ${point.x},${point.y}`
 }
 
-// Render the svg <path> element 
-// I:  - points (array): points coordinates
-//     - command (function)
-//       I:  - point (array) [x,y]: current point coordinates
-//           - i (integer): index of 'point' in the array 'a'
-//           - a (array): complete array of points coordinates
-//       O:  - (string) a svg path command
-// O:  - (string): a Svg <path> element
-const svgPath = (points) => {
-
-}
-
 export default class Line extends Component {
-  color = generateRandomColor();
-
   render() {
     const { 
       points, 
       strokeWidth,
+      color,
     } = this.props;
 
     // build the d attributes by looping over the points
@@ -95,7 +81,8 @@ export default class Line extends Component {
     return (
       <path 
         className="Line" 
-        stroke={ this.color } 
+        strokeLinecap="round"
+        stroke={ color } 
         strokeWidth={ strokeWidth || 5 }
         d={ d }
         fill="none"
