@@ -28,13 +28,13 @@ function getRandomVector2(maxVectorVelocity) {
   }
 }
 
-export default function generateVectors(gridSize, maxVectorVelocity) {
+export default function generateVectors(gridSizeX, gridSizeY, maxVectorVelocity) {
   const vectors = [];
 
-  for (let x = 0; x <= gridSize; x++) {
+  for (let x = 0; x <= gridSizeX; x++) {
     vectors[x] = [];
 
-    for (let y = 0; y <= gridSize; y++) {
+    for (let y = 0; y <= gridSizeY; y++) {
       vectors[x][y] = getRandomVector(maxVectorVelocity);
     }
   }

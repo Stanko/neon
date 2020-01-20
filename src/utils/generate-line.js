@@ -28,15 +28,15 @@ function multiplyVector(v, factor) {
   };
 }
 
-function getNextPoint(currentPoint, line, vectors, gridSize, gridStep) {
+function getNextPoint(currentPoint, line, vectors, gridSizeX, gridSizeY, gridStep) {
   const nearVectors = [];
 
   const searchRadiusFactor = 5;
 
-  for (let x = 0; x <= gridSize; x++) {
+  for (let x = 0; x <= gridSizeX; x++) {
     const xCoordinate = x * gridStep;
 
-    for (let y = 0; y <= gridSize; y++) {
+    for (let y = 0; y <= gridSizeY; y++) {
       const yCoordinate = y * gridStep;
       const start = { 
         x: xCoordinate, 
@@ -69,26 +69,28 @@ function getNextPoint(currentPoint, line, vectors, gridSize, gridStep) {
 
   line.push(nextPoint);
 
-  const size = gridSize * gridStep;
-  const offset = 0.1 * size;
+  const width = gridSizeX * gridStep;
+  const height = gridSizeY * gridStep;
+  const offsetX = 0.1 * width;
+  const offsetY = 0.1 * height;
   if (
-    nextPoint.x > (size + offset) ||
-    nextPoint.y > (size + offset) ||
-    nextPoint.x < -offset ||
-    nextPoint.y < -offset
+    nextPoint.x > (width + offsetX) ||
+    nextPoint.y > (height + offsetY) ||
+    nextPoint.x < -offsetX ||
+    nextPoint.y < -offsetY
   ) {
     return;
   }
 
   if (line.length < 100) {
-    getNextPoint(nextPoint, line, vectors, gridSize, gridStep);
+    getNextPoint(nextPoint, line, vectors, gridSizeX, gridSizeY, gridStep);
   }
 }
 
-export default function generateLine(startingPoint, vectors, gridSize, gridStep, strokeWidth = null) {
+export default function generateLine(startingPoint, vectors, gridSizeX, gridSizeY, gridStep, strokeWidth = null) {
   const line = [startingPoint];
 
-  getNextPoint(startingPoint, line, vectors, gridSize, gridStep);
+  getNextPoint(startingPoint, line, vectors, gridSizeX, gridSizeY, gridStep);
 
   const width = 5;
   line.strokeWidth = strokeWidth || Math.random() * width + 1;

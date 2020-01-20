@@ -98,6 +98,7 @@ export default class Line extends Component {
         stroke={ this.color } 
         strokeWidth={ strokeWidth || 5 }
         d={ d }
+        fill="none"
       />
     );
   }

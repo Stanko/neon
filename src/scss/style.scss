@@ -9,16 +9,101 @@ $border-color: #333;
 
 body {
   background: $background-color;
+  color: #aaa;
+  font-family: Helvetica, Arial, sans-serif;
 }
+
 
 .App {
   max-width: 800px;
   margin: 0 auto;
+  padding: 20px;
+}
+
+.Controls {
+  z-index: 10;
+  position: relative;
+}
+
+button {
+  border: 1px solid #444;
+  background: #232528;
+  display: inline-block;
+  margin: 10px 5px 0 0;
+  font-size: 14px;
+  border-radius: 50px;
+  padding: 6px 18px;
+  transition: all 300ms;
+  outline: none;
+  color: #999;
+
+  &:hover {
+    color: #BBB;
+    border-color: #555;
+    cursor: pointer;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+  
+  &:focus {
+    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666,
+  }
+}
+
+input[type=text] {
+  border: none;
+  border-bottom: 1px solid #444;
+  background: #232528;
+  display: inline-block;
+  margin: 10px 5px 0 0;
+  font-size: 14px;
+  padding: 6px 0;
+  transition: all 300ms;
+  outline: none;
+  color: #999;
+  width: 100px;
+
+  &:hover {
+    color: #BBB;
+    border-color: #555;
+    cursor: pointer;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+  
+  &:focus {
+    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666,
+  }
+}
+
+p {
+  margin-bottom: 10px;;
+}
+
+a {
+  color: #ddd;
+
+  &:hover {
+    color: #BBB;
+    cursor: pointer;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+  
+  &:focus {
+    color: #BBB;
+  }
 }
 
 svg {
   overflow: visible;
-  margin: 20px;
+  margin: 50px 10px;
   display: block;
   box-shadow: 
     0 0 0 1px $border-color,
