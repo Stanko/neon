@@ -143,6 +143,11 @@ export default class Image extends Component {
               Download SVG
             </a>
           )}
+          <div class="Image-downloadNote">
+            If download fails, that means your browser has a limit on base64 encoded files. Try Firefox or Safari. 
+            You can still get your file by inspecting the svg element, copying it's outer HTML and pasting it into text editor.
+            Then just save that file as "image.svg" and that should do the trick. 
+          </div>
         </div>
       </div>
     );
