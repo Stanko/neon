@@ -20,7 +20,7 @@ export default class Image extends Component {
 
     const frameWidth = xFrameWidth > yFrameWidth ? xFrameWidth : yFrameWidth;
     const width = imageWidth + 2 * frameWidth;
-    const height = imageWidth + 2 * frameWidth;
+    const height = imageHeight + 2 * frameWidth;
 
     setGlobalState({ debug: false });
 
