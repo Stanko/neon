@@ -9,14 +9,6 @@ export default function Grid({
 }) {
   const lines = [];
 
-  console.log(
-    imageWidth,
-    imageHeight,
-    numberOfColumns,
-    numberOfRows,
-    blockSize,
-  )
-
   for (let i = 0; i <= numberOfColumns; i++) {
     const coordinate = i * blockSize;
     

@@ -14,8 +14,8 @@ export default class Vectors extends Component {
         viewBox="0 0 6 6" 
         refX="3" 
         refY="3"
-        markerWidth="2" 
-        markerHeight="2"
+        markerWidth="4" 
+        markerHeight="4"
         orient="auto-start-reverse"
       >
         <path d="M 0 0 L 6 3 L 0 6 Z" />

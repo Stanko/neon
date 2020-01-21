@@ -32,7 +32,7 @@ export default class Controls extends Component {
       blockSize: 50,
       debug: false,
       numberOfColumns: 15,
-      numberOfLines: 100,
+      numberOfLines: 200,
       numberOfRows: 15,
       searchRange: 5,
       maxVectorVelocity: 50,
@@ -43,6 +43,10 @@ export default class Controls extends Component {
     };
 
     window.addEventListener("hashchange", this.handleHashChange);
+  }
+
+  componentDidMount() {
+    this.setHash();
   }
 
   componentWillUnmount() {
@@ -82,7 +86,7 @@ export default class Controls extends Component {
     this.setState(this.getStateFromHash);
   };
 
-  setHash = (partialState) => {
+  setHash = (partialState = {}) => {
     const hashState = {
       ...this.state,
       ...partialState,
@@ -215,17 +219,20 @@ export default class Controls extends Component {
             setState={this.setHash}
           />
 
-          <button onClick={this.generateNewVectorSeed}>Regenerate vectors</button>
-          <button onClick={this.generateNewLinesSeed}>Regenerate lines</button>
-          <button onClick={this.generateNewColorsSeed}>Regenerate colors</button>
-          <button onClick={this.reset}>Reset</button>
+          <div className='Controls-buttons'>
+            <button onClick={this.generateNewVectorSeed}>Regenerate vectors</button>
+            <button onClick={this.generateNewLinesSeed}>Regenerate lines</button>
+            <button onClick={this.generateNewColorsSeed}>Regenerate colors</button>
+            <button className='Controls-reset' onClick={this.reset}>Reset</button>
+          </div>
+          
         </div>
 
         <App
           {...this.state}
           imageWidth={blockSize * numberOfColumns}
           imageHeight={blockSize * numberOfRows}
-          setGlobalState={setState}
+          setGlobalState={this.setHash}
         />
       </div>
     );

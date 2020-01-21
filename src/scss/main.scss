@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $background-color;
+  color: #aaa;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.App {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+
+  @include md {
+    display: flex;
+    padding: 30px;
+  }
+
+  @include lg {
+    padding: 40px;
+  }
+
+  @include xl {
+    padding: 50px;
+  }
+}
+
+.Image {
+  max-width: 1000px;
+  width: 100%;
+  margin-top: 60px;
+
+  @include md {
+    margin-top: 0;
+  }
+}
+
+.Controls {
+  flex-basis: 300px;
+  flex-shrink: 0;
+
+  @include md {
+    margin-right: 30px;
+  }
+
+  @include lg {
+    margin-right: 40px;
+  }
+
+  @include xl {
+    margin-right: 50px;
+  }
+}
+

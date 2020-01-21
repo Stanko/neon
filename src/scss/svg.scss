@@ -1,0 +1,37 @@
+svg {
+  overflow: visible;
+  display: block;
+  border: 1px solid #444;
+}
+
+marker {
+  overflow: visible;
+}
+
+path {
+  stroke-linecap: round;
+  fill: none;
+}
+
+.GridLine {
+  stroke: $border-color;
+}
+
+.Vector {
+  stroke: #bbb;
+  stroke-width: 2;
+  filter: drop-shadow(1px 1px 0px black);
+}
+
+#marker-arrow path{
+  fill: #bbb;
+}
+
+.Image-downloadSection {
+  margin-top: 20px;
+}
+
+.Image-generateDownload {
+  display: block;
+}
+

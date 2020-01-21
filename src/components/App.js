@@ -13,15 +13,49 @@ export default class Image extends Component {
   };
 
   generateDownloadLink = () => {
-    const { setGlobalState } = this.props;
+    const { setGlobalState, imageWidth, imageHeight } = this.props;
 
-    setGlobalState({ debug: false }, () => {
+    const xFrameWidth = imageWidth / 5;
+    const yFrameWidth = imageHeight / 5;
+
+    const frameWidth = xFrameWidth > yFrameWidth ? xFrameWidth : yFrameWidth;
+    const width = imageWidth + 2 * frameWidth;
+    const height = imageWidth + 2 * frameWidth;
+
+    setGlobalState({ debug: false });
+
+    setTimeout(() => {
+      const svg = `
+        <svg
+          viewBox="0 0 ${width} ${height}"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="0"
+            y="0"
+            width="${width}"
+            height="${height}"
+            fill="#1a1c1e"
+            stroke="none"
+          />
+          <rect
+            x="${frameWidth}"
+            y="${frameWidth}"
+            width="${imageWidth}"
+            height="${imageHeight}"
+            stroke="#444"
+            strokeWidth="1"
+            fill="none"
+          />
+          <g transform="translate(${frameWidth} ${frameWidth})">
+            ${ this.svgElement ? this.svgElement.innerHTML : null }
+          </g>
+        </svg>`;
+
       this.setState({
-        downloadLink: `data:application/octet-stream;base64,${btoa(
-          this.svgElement ? this.svgElement.outerHTML : null
-        )}`
+        downloadLink: `data:application/octet-stream;base64,${btoa(svg)}`
       });
-    });
+    }, 100);
   };
 
   removeDownloadLink = () => {
@@ -41,7 +75,7 @@ export default class Image extends Component {
       vectorsSeed,
       numberOfLines,
       colorsSeed,
-      searchRange,
+      searchRange
     } = this.props;
 
     const { downloadLink } = this.state;
@@ -77,14 +111,8 @@ export default class Image extends Component {
           ref={el => (this.svgElement = el)}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect
-            x="0"
-            y="0"
-            width={imageWidth}
-            height={imageHeight}
-            fill="#232528"
-          />
           {debug && <Grid {...this.props} />}
+          {debug && <Vectors vectors={vectors} blockSize={blockSize} />}
           {lines.map((line, index) => (
             <Line
               key={index}
@@ -93,23 +121,29 @@ export default class Image extends Component {
               color={line.color}
             />
           ))}
-          {debug && <Vectors vectors={vectors} blockSize={blockSize} />}
+          
         </svg>
-        <button onClick={this.generateDownloadLink}>
-          Generate SVG download
-        </button>
-        {downloadLink && (
-          <a
-            className="Image-download"
-            download={`${window.location.hash
-              .replace("#/", "")
-              .replace(/\//g, "-")}.svg`}
-            href={downloadLink}
-            onClick={this.removeDownloadLink}
+
+        <div className="Image-downloadSection">
+          <button
+            className="Image-generateDownload"
+            onClick={this.generateDownloadLink}
           >
-            Download SVG
-          </a>
-        )}
+            Generate SVG download
+          </button>
+          {downloadLink && (
+            <a
+              className="Button Image-download"
+              download={`${window.location.hash
+                .replace("#/", "")
+                .replace(/\//g, "-")}.svg`}
+              href={downloadLink}
+              onClick={this.removeDownloadLink}
+            >
+              Download SVG
+            </a>
+          )}
+        </div>
       </div>
     );
   }
