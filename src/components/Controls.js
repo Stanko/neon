@@ -3,6 +3,8 @@ import React, { Component, Fragment } from "react";
 import App from "./App";
 import Control from "./Control";
 
+import { generateRandomColor } from '../utils/generate-line';
+
 const HASH_PARAMS = [
   "debug",
   "numberOfColumns",
@@ -13,7 +15,7 @@ const HASH_PARAMS = [
   "searchRange",
   "vectorsSeed",
   "linesSeed",
-  "colorsSeed",
+  "colorsSeed"
 ];
 
 const BOOLEANS_PARAMS = ["debug"];
@@ -89,37 +91,37 @@ export default class Controls extends Component {
   setHash = (partialState = {}) => {
     const hashState = {
       ...this.state,
-      ...partialState,
+      ...partialState
     };
 
     window.location.hash = HASH_PARAMS.reduce(
       (hash, key) => (hash += `/${hashState[key]}`),
       ""
     );
-  }
+  };
 
   generateNewVectorSeed = () => {
     this.setHash({
-      vectorsSeed: getRandomString(),
+      vectorsSeed: getRandomString()
     });
-  }
+  };
 
   generateNewLinesSeed = () => {
     this.setHash({
-      linesSeed: getRandomString(),
+      linesSeed: getRandomString()
     });
-  }
+  };
 
   generateNewColorsSeed = () => {
     this.setHash({
-      colorsSeed: getRandomString(),
+      colorsSeed: getRandomString()
     });
-  }
+  };
 
   reset = () => {
-    window.location.hash = '';
+    window.location.hash = "";
     window.location.reload();
-  }
+  };
 
   render() {
     const {
@@ -132,7 +134,7 @@ export default class Controls extends Component {
       numberOfRows,
       searchRange,
       vectorsSeed,
-      colorsSeed,
+      colorsSeed
     } = this.state;
 
     const setState = this.setState.bind(this);
@@ -140,6 +142,12 @@ export default class Controls extends Component {
     return (
       <div className="App">
         <div className="Controls">
+          <h1 aria-label="Neon">
+            <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">N</span>
+            <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">e</span>
+            <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">o</span>
+            <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">n</span>
+          </h1>
           <Control
             name="debug"
             value={debug}
@@ -219,13 +227,20 @@ export default class Controls extends Component {
             setState={this.setHash}
           />
 
-          <div className='Controls-buttons'>
-            <button onClick={this.generateNewVectorSeed}>Regenerate vectors</button>
-            <button onClick={this.generateNewLinesSeed}>Regenerate lines</button>
-            <button onClick={this.generateNewColorsSeed}>Regenerate colors</button>
-            <button className='Controls-reset' onClick={this.reset}>Reset</button>
+          <div className="Controls-buttons">
+            <button onClick={this.generateNewVectorSeed}>
+              Regenerate vectors
+            </button>
+            <button onClick={this.generateNewLinesSeed}>
+              Regenerate lines
+            </button>
+            <button onClick={this.generateNewColorsSeed}>
+              Regenerate colors
+            </button>
+            <button className="Controls-reset" onClick={this.reset}>
+              Reset
+            </button>
           </div>
-          
         </div>
 
         <App

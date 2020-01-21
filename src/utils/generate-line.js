@@ -1,6 +1,6 @@
 import seedrandom from "seedrandom";
 
-function generateRandomColor(rng) {
+export function generateRandomColor(rng) {
   const h = parseInt((rng() * 360 + 220) % 360, 10);
 
   return `hsl(${ h }, 70%, 60%)`;

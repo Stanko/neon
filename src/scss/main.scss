@@ -42,6 +42,8 @@ body {
 .Controls {
   flex-basis: 300px;
   flex-shrink: 0;
+  z-index: 10;
+  position: relative;
 
   @include md {
     margin-right: 30px;
@@ -56,3 +58,8 @@ body {
   }
 }
 
+h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
