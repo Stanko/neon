@@ -99,19 +99,19 @@ export default class Controls extends Component {
   }
 
   generateNewVectorSeed = () => {
-    this.setState({
+    this.setHash({
       vectorsSeed: getRandomString(),
     });
   }
 
   generateNewLinesSeed = () => {
-    this.setState({
+    this.setHash({
       linesSeed: getRandomString(),
     });
   }
 
   generateNewColorsSeed = () => {
-    this.setState({
+    this.setHash({
       colorsSeed: getRandomString(),
     });
   }
