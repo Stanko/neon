@@ -42,12 +42,12 @@ export default class Controls extends Component {
       ...this.getStateFromHash()
     };
 
-    // window.addEventListener("hashchange", this.handleHashChange);
+    window.addEventListener("hashchange", this.handleHashChange);
   }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener("hashchange", this.handleHashChange);
-  // }
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this.handleHashChange);
+  }
 
   getStateFromHash() {
     const params = window.location.hash.replace("#", "").split("/");
@@ -81,6 +81,18 @@ export default class Controls extends Component {
   handleHashChange = () => {
     this.setState(this.getStateFromHash);
   };
+
+  setHash = (partialState) => {
+    const hashState = {
+      ...this.state,
+      ...partialState,
+    };
+
+    window.location.hash = HASH_PARAMS.reduce(
+      (hash, key) => (hash += `/${hashState[key]}`),
+      ""
+    );
+  }
 
   generateNewVectorSeed = () => {
     this.setState({
@@ -121,11 +133,6 @@ export default class Controls extends Component {
 
     const setState = this.setState.bind(this);
 
-    window.location.hash = HASH_PARAMS.reduce(
-      (hash, key) => (hash += `/${this.state[key]}`),
-      ""
-    );
-
     return (
       <div className="App">
         <div className="Controls">
@@ -133,7 +140,7 @@ export default class Controls extends Component {
             name="debug"
             value={debug}
             type="checkbox"
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="numberOfColumns"
@@ -142,7 +149,7 @@ export default class Controls extends Component {
             min={5}
             max={20}
             step={1}
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="numberOfRows"
@@ -151,7 +158,7 @@ export default class Controls extends Component {
             min={5}
             max={20}
             step={1}
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="blockSize"
@@ -160,7 +167,7 @@ export default class Controls extends Component {
             min={10}
             max={100}
             step={5}
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="maxVectorVelocity"
@@ -169,7 +176,7 @@ export default class Controls extends Component {
             min={10}
             max={100}
             step={5}
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="numberOfLines"
@@ -178,7 +185,7 @@ export default class Controls extends Component {
             min={10}
             max={500}
             step={10}
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="searchRange"
@@ -187,25 +194,25 @@ export default class Controls extends Component {
             min={1}
             max={10}
             step={0.5}
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="vectorsSeed"
             value={vectorsSeed}
             type="text"
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="linesSeed"
             value={linesSeed}
             type="text"
-            setState={setState}
+            setState={this.setHash}
           />
           <Control
             name="colorsSeed"
             value={colorsSeed}
             type="text"
-            setState={setState}
+            setState={this.setHash}
           />
 
           <button onClick={this.generateNewVectorSeed}>Regenerate vectors</button>
