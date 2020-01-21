@@ -1,5 +1,5 @@
 {
-  "name": "vector-field",
+  "name": "neon",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Stanko/vector-field.git"
+    "url": "git+https://github.com/Stanko/neon.git"
   },
   "author": "Stanko",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Stanko/vector-field/issues"
+    "url": "https://github.com/Stanko/neon/issues"
   },
-  "homepage": "https://github.com/Stanko/vector-field#readme",
+  "homepage": "https://github.com/Stanko/neon#readme",
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/preset-env": "^7.7.7",

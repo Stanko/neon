@@ -142,12 +142,19 @@ export default class Controls extends Component {
     return (
       <div className="App">
         <div className="Controls">
-          <h1 aria-label="Neon">
+          <h1 aria-label="Neon" className="Controls-title">
             <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">N</span>
             <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">e</span>
             <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">o</span>
             <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">n</span>
           </h1>
+          <div className="Controls-description">
+            <p>
+              Generative art piece made using 2d vector field.
+            </p>
+            <a style={{ color: generateRandomColor(Math.random) }} href="https://muffinman.io">My blog</a>
+            <a style={{ color: generateRandomColor(Math.random) }} href="https://github.com/Stanko/neon">GitHub</a>
+          </div>
           <Control
             name="debug"
             value={debug}
