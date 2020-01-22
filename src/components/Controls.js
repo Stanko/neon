@@ -137,16 +137,16 @@ export default class Controls extends Component {
       colorsSeed
     } = this.state;
 
-    const setState = this.setState.bind(this);
-
     return (
       <div className="App">
         <div className="Controls">
           <h1 aria-label="Neon" className="Controls-title">
-            <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">N</span>
-            <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">e</span>
-            <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">o</span>
-            <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">n</span>
+            <a href="/" className="Controls-titleLine">
+              <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">N</span>
+              <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">e</span>
+              <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">o</span>
+              <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">n</span>
+            </a>
           </h1>
           <div className="Controls-description">
             <p>
