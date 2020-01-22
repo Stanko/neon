@@ -3,17 +3,14 @@ import React, { Component, Fragment } from "react";
 import Grid from "./Grid";
 import Vectors from "./Vectors";
 import Line from "./Line";
+import { saveAs } from "file-saver";
 
 import generateVectors from "../utils/generate-vectors";
 import generateLines from "../utils/generate-lines";
 
 export default class Image extends Component {
-  state = {
-    downloadLink: null
-  };
-
-  generateDownloadLink = () => {
-    const { setGlobalState, imageWidth, imageHeight } = this.props;
+  downloadSVG = () => {
+    const { debug, setGlobalState, imageWidth, imageHeight } = this.props;
 
     const xFrameWidth = imageWidth / 5;
     const yFrameWidth = imageHeight / 5;
@@ -22,7 +19,13 @@ export default class Image extends Component {
     const width = imageWidth + 2 * frameWidth;
     const height = imageHeight + 2 * frameWidth;
 
-    setGlobalState({ debug: false });
+    let timeout = 0;
+
+    if (debug) {
+      // To give browser time to rerender the svg
+      timeout = 100;
+      setGlobalState({ debug: false });
+    }
 
     setTimeout(() => {
       const svg = `
@@ -48,18 +51,14 @@ export default class Image extends Component {
             fill="none"
           />
           <g transform="translate(${frameWidth} ${frameWidth})">
-            ${ this.svgElement ? this.svgElement.innerHTML : null }
+            ${this.svgElement ? this.svgElement.innerHTML : null}
           </g>
         </svg>`;
 
-      this.setState({
-        downloadLink: `data:application/octet-stream;base64,${btoa(svg)}`
-      });
-    }, 100);
-  };
-
-  removeDownloadLink = () => {
-    this.setState({ downloadLink: null });
+      const name =
+        window.location.hash.replace("#/", "").replace(/\//g, "-") + ".svg";
+      saveAs(`data:application/octet-stream;base64,${btoa(svg)}`, name);
+    }, timeout);
   };
 
   render() {
@@ -77,8 +76,6 @@ export default class Image extends Component {
       colorsSeed,
       searchRange
     } = this.props;
-
-    const { downloadLink } = this.state;
 
     const vectors = generateVectors(
       vectorsSeed,
@@ -121,32 +118,15 @@ export default class Image extends Component {
               color={line.color}
             />
           ))}
-          
         </svg>
 
         <div className="Image-downloadSection">
-          <button
-            className="Image-generateDownload"
-            onClick={this.generateDownloadLink}
-          >
-            Generate SVG download
+          <button className="Image-generateDownload" onClick={this.downloadSVG}>
+            Download SVG
           </button>
-          {downloadLink && (
-            <a
-              className="Button Image-download"
-              download={`${window.location.hash
-                .replace("#/", "")
-                .replace(/\//g, "-")}.svg`}
-              href={downloadLink}
-              onClick={this.removeDownloadLink}
-            >
-              Download SVG
-            </a>
-          )}
-          <div class="Image-downloadNote">
-            If download fails, that means your browser has a limit on base64 encoded files. Try Firefox or Safari. 
-            You can still get your file by inspecting the svg element, copying it's outer HTML and pasting it into text editor.
-            Then just save that file as "image.svg" and that should do the trick. 
+          <div className="Image-downloadNote">
+            Downloading files should be fixed. If it fails, please open an issue on GitHub with the url that fails.
+            Meanwhile, try Firefox or Safari (or manually copy SVG's code from dev tools).
           </div>
         </div>
       </div>
