@@ -2,14 +2,29 @@
 
 Generative art piece made using 2d vector field.
 
-
 [https://neon-v1.netlify.com](neon-v1.netlify.com)
 
 All generated images have unique URL you can easily share.
 
 If you end up using Neon, please let me know, I would love to see it in the wild. Just open an issue with what you did with it.
 
-### Example
+## Example image
 
 [![Image generated using Neon](example.svg)](https://neon-v1.netlify.com/#/false/15/15/50/50/110/5/k554ri7kipa/32fmz98huj9/qunuqveb03)
 
+## Running it locally
+
+You'll need to have node and npm installed.
+
+I used node 12, and project is built using node 10 on netlify.
+
+* Install dependencies
+  ```
+  npm install
+  ```
+* Run local server
+  ```
+  npm start
+  ```
+
+  Visit [http://localhost:1234](localhost:1234)
