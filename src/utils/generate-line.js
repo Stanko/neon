@@ -94,7 +94,7 @@ function getNextPoint(
     return;
   }
 
-  if (line.length < 100) {
+  if (line.length < 50) {
     getNextPoint(nextPoint, line, vectors, gridSizeX, gridSizeY, gridStep, searchRadiusFactor);
   }
 }
