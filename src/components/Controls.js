@@ -141,7 +141,7 @@ export default class Controls extends Component {
       <div className="App">
         <div className="Controls">
           <h1 aria-label="Neon" className="Controls-title">
-            <a href="/" className="Controls-titleLine">
+            <a href="/" className="Controls-titleLink">
               <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">N</span>
               <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">e</span>
               <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">o</span>
@@ -152,7 +152,7 @@ export default class Controls extends Component {
             <p>
               Generative art piece made using 2d vector field.
             </p>
-            <a style={{ color: generateRandomColor(Math.random) }} href="https://muffinman.io">My blog</a>
+            <a style={{ color: generateRandomColor(Math.random) }} href="https://muffinman.io/neon-generative-art-piece-made-using-2d-vector-field/">How Neon works</a>
             <a style={{ color: generateRandomColor(Math.random) }} href="https://github.com/Stanko/neon">GitHub</a>
           </div>
           <Control

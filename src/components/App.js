@@ -56,7 +56,7 @@ export default class Image extends Component {
         </svg>`;
 
       const name =
-        window.location.hash.replace("#/", "").replace(/\//g, "-") + ".svg";
+        'neon-' + window.location.hash.replace("#/", "").replace(/\//g, "-") + ".svg";
       saveAs(`data:application/octet-stream;base64,${btoa(svg)}`, name);
     }, timeout);
   };

@@ -1,6 +1,6 @@
 # Neon
 
-Generative art piece made using 2d vector field.
+Generative art piece made using 2d vector field. You can read how it works in [this blog post](https://muffinman.io/neon-generative-art-piece-made-using-2d-vector-field/).
 
 [https://neon-v1.netlify.com](neon-v1.netlify.com)
 
