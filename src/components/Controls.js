@@ -33,9 +33,9 @@ export default class Controls extends Component {
     this.state = {
       blockSize: 50,
       debug: false,
-      numberOfColumns: 15,
+      numberOfColumns: 16,
       numberOfLines: 200,
-      numberOfRows: 15,
+      numberOfRows: 10,
       searchRange: 5,
       maxVectorVelocity: 50,
       vectorsSeed: getRandomString(),
@@ -210,7 +210,7 @@ export default class Controls extends Component {
             name="searchRange"
             value={searchRange}
             type="range"
-            min={1}
+            min={3}
             max={10}
             step={0.5}
             setState={this.setHash}

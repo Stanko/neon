@@ -125,7 +125,7 @@ export default class Image extends Component {
             Download SVG
           </button>
           <div className="Image-downloadNote">
-            Downloading files should be fixed. If it fails, please open an issue on GitHub with the url that fails.
+            Downloading files should be fixed. If it fails, please open an issue on GitHub with the url that failed.
             Meanwhile, try Firefox or Safari (or manually copy SVG's code from dev tools).
           </div>
         </div>
