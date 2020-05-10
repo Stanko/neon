@@ -2,6 +2,14 @@ svg {
   overflow: visible;
   display: block;
   border: 1px solid #444;
+
+  @include lg {
+    margin: 6%;
+  }
+  
+  @include xl {
+    margin: 8%;
+  }
 }
 
 marker {
