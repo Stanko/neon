@@ -6,6 +6,23 @@ export function generateRandomColor(rng) {
   return `hsl(${ h }, 70%, 60%)`;
 }
 
+const plottingColors = [
+  '#f7eb4e', // yellow
+  '#e6843b', // orange
+  '#d34d3e', // red 1
+  '#da3a32', // red 2
+  '#da3a7a', // dark pink
+  '#d575a9', // pink
+  '#5e3288', // purple
+  '#4968ae', // blue
+  '#4aa57b', // green
+  '#4e989d', // green-blue
+]
+
+function generateRandomPlottingColor(rng) {
+  return plottingColors[Math.floor(rng() * plottingColors.length)];
+}
+
 function isDotInCircle(dot, circleCenter, radius) {
   const x = dot.x - circleCenter.x;
   const y = dot.y - circleCenter.y;
@@ -107,22 +124,24 @@ export default function generateLine(
   blockSize,
   colorRng,
   searchRadiusFactor,
-  strokeWidth = null
+  plotting
 ) {
   const line = [startingPoint];
 
   getNextPoint(startingPoint, line, vectors, numberOfColumns, numberOfRows, blockSize, searchRadiusFactor);
 
   const maxWidth = 5;
-  
+
   const widthRng = seedrandom(line.join(''));
 
-  if (!strokeWidth) {
-    strokeWidth = widthRng() * maxWidth + 1;
+  if (plotting) {
+    line.strokeWidth = 2;
+    line.color = generateRandomPlottingColor(colorRng);
+  } else  {
+    line.color = generateRandomColor(colorRng);
+    line.strokeWidth = widthRng() * maxWidth + 1;
   }
-  
-  line.strokeWidth = strokeWidth;
-  line.color = generateRandomColor(colorRng);
+
 
   return line;
 }

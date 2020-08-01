@@ -7,6 +7,7 @@ import { generateRandomColor } from '../utils/generate-line';
 
 const HASH_PARAMS = [
   "debug",
+  "plotting",
   "numberOfColumns",
   "numberOfRows",
   "blockSize",
@@ -18,7 +19,7 @@ const HASH_PARAMS = [
   "colorsSeed"
 ];
 
-const BOOLEANS_PARAMS = ["debug"];
+const BOOLEANS_PARAMS = ["debug", "plotting"];
 
 function getRandomString() {
   return Math.random()
@@ -41,7 +42,8 @@ export default class Controls extends Component {
       vectorsSeed: getRandomString(),
       linesSeed: getRandomString(),
       colorsSeed: getRandomString(),
-      ...this.getStateFromHash()
+      plotting: false,
+      ...this.getStateFromHash(),
     };
 
     window.addEventListener("hashchange", this.handleHashChange);
@@ -134,7 +136,8 @@ export default class Controls extends Component {
       numberOfRows,
       searchRange,
       vectorsSeed,
-      colorsSeed
+      colorsSeed,
+      plotting,
     } = this.state;
 
     return (
@@ -158,6 +161,12 @@ export default class Controls extends Component {
           <Control
             name="debug"
             value={debug}
+            type="checkbox"
+            setState={this.setHash}
+          />
+          <Control
+            name="plotting"
+            value={plotting}
             type="checkbox"
             setState={this.setHash}
           />

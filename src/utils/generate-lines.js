@@ -12,7 +12,8 @@ export default function generateLines(
   imageHeight,
   vectors,
   colorsSeed,
-  searchRadiusFactor
+  searchRadiusFactor,
+  plotting
 ) {
   const rng = new seedrandom(linesSeed);
 
@@ -34,10 +35,42 @@ export default function generateLines(
         numberOfRows,
         blockSize,
         colorRng,
-        searchRadiusFactor
+        searchRadiusFactor,
+        plotting
       )
     );
   }
 
-  return lines;
+  if (plotting) {
+    lines.sort((a, b) => {
+      if (a.color < b.color) { 
+        return -1; 
+      }
+      if (a.color > b.color) { 
+        return 1; 
+      }
+      return 0;
+    });
+
+    const lineGroups = [];
+
+    let currentColor = null;
+    let currentIndex = -1;
+
+    lines.forEach(line => {
+      if (line.color !== currentColor) {
+        currentIndex++;
+        lineGroups[currentIndex] = [];
+        currentColor = line.color;
+      }
+
+      lineGroups[currentIndex].push(line);
+    });
+
+    console.log(lineGroups)
+
+    return lineGroups;
+  } else {
+    return [lines];
+  }
 }

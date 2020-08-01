@@ -74,7 +74,8 @@ export default class Image extends Component {
       vectorsSeed,
       numberOfLines,
       colorsSeed,
-      searchRange
+      searchRange,
+      plotting,
     } = this.props;
 
     const vectors = generateVectors(
@@ -96,7 +97,8 @@ export default class Image extends Component {
       imageHeight,
       vectors,
       colorsSeed,
-      searchRange
+      searchRange,
+      plotting
     );
 
     this.lines = lines;
@@ -110,13 +112,17 @@ export default class Image extends Component {
         >
           {debug && <Grid {...this.props} />}
           {debug && <Vectors vectors={vectors} blockSize={blockSize} />}
-          {lines.map((line, index) => (
-            <Line
-              key={index}
-              points={line}
-              strokeWidth={line.strokeWidth}
-              color={line.color}
-            />
+          {lines.map((lineGroup, index) => (
+            <g key={index}>
+              {lineGroup.map((line, index) => (
+                <Line
+                  key={index}
+                  points={line}
+                  strokeWidth={line.strokeWidth}
+                  color={line.color}
+                />
+              ))}
+            </g>
           ))}
         </svg>
 
