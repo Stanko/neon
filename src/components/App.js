@@ -41,15 +41,21 @@ export default class Image extends Component {
             fill="#1a1c1e"
             stroke="none"
           />
-          <rect
-            x="${frameWidth}"
-            y="${frameWidth}"
-            width="${imageWidth}"
-            height="${imageHeight}"
-            stroke="#444"
-            strokeWidth="1"
-            fill="none"
-          />
+          <g
+            inkscape:label="10-frame"
+            inkscape:groupmode="layer"
+            id="10-frame"
+          >
+            <rect
+              x="${frameWidth}"
+              y="${frameWidth}"
+              width="${imageWidth}"
+              height="${imageHeight}"
+              stroke="#444"
+              strokeWidth="1"
+              fill="none"
+            />
+          </g>
           <g transform="translate(${frameWidth} ${frameWidth})">
             ${this.svgElement ? this.svgElement.innerHTML : null}
           </g>
@@ -112,18 +118,28 @@ export default class Image extends Component {
         >
           {debug && <Grid {...this.props} />}
           {debug && <Vectors vectors={vectors} blockSize={blockSize} />}
-          {lines.map((lineGroup, index) => (
-            <g key={index}>
-              {lineGroup.map((line, index) => (
-                <Line
-                  key={index}
-                  points={line}
-                  strokeWidth={line.strokeWidth}
-                  color={line.color}
-                />
-              ))}
-            </g>
-          ))}
+          {lines.map((lineGroup, index) => {
+            const inkscapeProps = {
+              'inkscape:label': lineGroup.color,
+              'inkscape:groupmode': 'layer',
+            };
+            return (
+              <g
+                key={index}
+                id={lineGroup.color}
+                {...inkscapeProps}
+              >
+                {lineGroup.map((line, index) => (
+                  <Line
+                    key={index}
+                    points={line}
+                    strokeWidth={line.strokeWidth}
+                    color={line.color}
+                  />
+                ))}
+              </g>
+            );
+          })}
         </svg>
 
         <div className="Image-downloadSection">

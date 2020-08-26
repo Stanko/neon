@@ -2,6 +2,19 @@ import seedrandom from "seedrandom";
 
 import generateLine from "./generate-line";
 
+const colorLayerName = {
+  '#d34d3e': '11-red-1',
+  '#da3a32': '12-red-2',
+  '#da3a7a': '13-dark-pink',
+  '#d575a9': '14-pink',
+  '#4e989d': '15-green-blue',
+  '#e6843b': '16-orange',
+  '#4968ae': '17-blue',
+  '#5e3288': '18-purple',
+  '#4aa57b': '19-green',
+  '#f7eb4e': '20-yellow',
+}
+
 export default function generateLines(
   linesSeed,
   numberOfLines,
@@ -62,6 +75,7 @@ export default function generateLines(
         currentIndex++;
         lineGroups[currentIndex] = [];
         currentColor = line.color;
+        lineGroups[currentIndex].color = colorLayerName[line.color];
       }
 
       lineGroups[currentIndex].push(line);
