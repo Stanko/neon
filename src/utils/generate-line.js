@@ -7,17 +7,18 @@ export function generateRandomColor(rng) {
 }
 
 const plottingColors = [
-  '#f7eb4e', // yellow
-  '#e6843b', // orange
-  '#d34d3e', // red 1
-  '#da3a32', // red 2
-  '#da3a7a', // dark pink
-  '#d575a9', // pink
-  '#5e3288', // purple
-  '#4968ae', // blue
-  '#4aa57b', // green
-  '#4e989d', // green-blue
-]
+  // https://images-na.ssl-images-amazon.com/images/I/815Rgc6cU%2BL._AC_SL1500_.jpg
+  '#d2f673', // yellow
+  '#f0965d', // orange
+  '#eb6373', // dark pink
+  '#e54d90', // pink
+  '#73cd65', // light green
+  '#a0333b', // red
+  '#8f3077', // light purple
+  '#43308c', // purple
+  '#3f8f84', // blue green
+  '#26588d', // blue
+];
 
 function generateRandomPlottingColor(rng) {
   return plottingColors[Math.floor(rng() * plottingColors.length)];
