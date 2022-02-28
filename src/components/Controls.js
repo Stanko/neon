@@ -152,7 +152,7 @@ export default class Controls extends Component {
             <p>
               Generative art piece made using 2d vector field.
             </p>
-            <a style={{ color: generateRandomColor(Math.random) }} href="https://muffinman.io/neon-generative-art-piece-made-using-2d-vector-field/">How Neon works</a>
+            <a style={{ color: generateRandomColor(Math.random) }} href="https://muffinman.io/blog/neon-generative-art-piece-made-using-2d-vector-field/">How Neon works</a>
             <a style={{ color: generateRandomColor(Math.random) }} href="https://github.com/Stanko/neon">GitHub</a>
           </div>
           <Control
