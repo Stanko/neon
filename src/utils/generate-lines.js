@@ -1,6 +1,6 @@
-import seedrandom from "seedrandom";
+import seedrandom from 'seedrandom';
 
-import generateLine from "./generate-line";
+import generateLine from './generate-line';
 
 export default function generateLines(
   linesSeed,
@@ -23,7 +23,7 @@ export default function generateLines(
   for (let i = 0; i < numberOfLines; i++) {
     const startingPoint = {
       x: Math.round(rng() * (imageWidth - 10)) + 5,
-      y: Math.round(rng() * (imageHeight - 10)) + 5
+      y: Math.round(rng() * (imageHeight - 10)) + 5,
     };
 
     lines.push(

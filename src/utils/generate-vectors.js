@@ -11,7 +11,7 @@ function getRandomVector(rng, maxVectorVelocity) {
 
   return {
     x: rng() * xSign * maxVectorVelocity + directionVector.x,
-    y: rng() * ySign * maxVectorVelocity + directionVector.y
+    y: rng() * ySign * maxVectorVelocity + directionVector.y,
   };
 }
 
@@ -22,7 +22,6 @@ function getRandomVector(rng, maxVectorVelocity) {
 //   };
 // }
 
-
 // function getRandomVector2(maxVectorVelocity) {
 //   return {
 //     x: (Math.random() * 0.2) * maxVectorVelocity,
@@ -30,7 +29,12 @@ function getRandomVector(rng, maxVectorVelocity) {
 //   }
 // }
 
-export default function generateVectors(vectorsSeed, gridSizeX, gridSizeY, maxVectorVelocity) {
+export default function generateVectors(
+  vectorsSeed,
+  gridSizeX,
+  gridSizeY,
+  maxVectorVelocity
+) {
   const rng = new seedrandom(vectorsSeed);
 
   const vectors = [];

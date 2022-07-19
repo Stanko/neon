@@ -2,11 +2,10 @@
   "name": "neon",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "rm -rf dist && parcel build src/index.html"
   },
   "repository": {
     "type": "git",
@@ -19,19 +18,17 @@
   },
   "homepage": "https://github.com/Stanko/neon#readme",
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
     "@material-ui/core": "^4.9.13",
-    "@types/react": "^16.9.34",
+    "@types/react": "^17.0.2",
     "file-saver": "^2.0.2",
-    "node-sass": "^7.0.0",
-    "parcel-bundler": "^1.12.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.6"
+    "parcel": "^2.6.2",
+    "@babel/core": "^7.18.9",
+    "@parcel/transformer-sass": "^2.6.2",
+    "process": "^0.11.10"
   }
 }

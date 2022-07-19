@@ -7,7 +7,7 @@
 
 .Control-label {
   flex-basis: 100%;
-  margin-bottom: 6px;;
+  margin-bottom: 6px;
 }
 
 .Control-inputWrapper {
@@ -16,7 +16,7 @@
   flex-basis: calc(100% - 140px);
   margin-right: auto;
 
-  input:not([type=checkbox]) {
+  input:not([type='checkbox']) {
     width: 100%;
   }
 }
@@ -37,7 +37,6 @@
   display: block;
 }
 
-
 .Controls-title {
   font-size: 26px;
   margin-bottom: 10px;
@@ -54,11 +53,11 @@
 
 .Controls-description {
   margin-bottom: 20px;
-  
+
   p {
     margin-bottom: 10px;
   }
-  
+
   a {
     margin-right: 10px;
     transition: all 250ms;

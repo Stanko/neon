@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function Grid({
   imageWidth,
@@ -11,12 +11,12 @@ export default function Grid({
 
   for (let i = 0; i <= numberOfColumns; i++) {
     const coordinate = i * blockSize;
-    
+
     lines.push(
       <path
-        key={`y${ i }`}
+        key={`y${i}`}
         className="GridLine"
-        d={ `M ${ coordinate } 0 L ${ coordinate } ${ imageHeight }` } 
+        d={`M ${coordinate} 0 L ${coordinate} ${imageHeight}`}
       />
     );
   }
@@ -26,9 +26,9 @@ export default function Grid({
 
     lines.push(
       <path
-        key={`x${ i }`}
+        key={`x${i}`}
         className="GridLine"
-        d={ `M 0 ${ coordinate } L ${ imageWidth } ${ coordinate }` } 
+        d={`M 0 ${coordinate} L ${imageWidth} ${coordinate}`}
       />
     );
   }

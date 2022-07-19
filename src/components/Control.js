@@ -1,10 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import Slider from '@material-ui/core/Slider';
 
-
 export function convertCamelCase(string) {
-  return string.replace(/^[a-z]|[A-Z]/g, function(v, i) {
-    return i === 0 ? v.toUpperCase() : " " + v.toLowerCase();
+  return string.replace(/^[a-z]|[A-Z]/g, function (v, i) {
+    return i === 0 ? v.toUpperCase() : ' ' + v.toLowerCase();
   });
 }
 
@@ -12,13 +11,13 @@ export default class Control extends Component {
   isCheckbox() {
     const { type } = this.props;
 
-    return type === "checkbox";
+    return type === 'checkbox';
   }
 
   isRange() {
     const { type } = this.props;
 
-    return type === "range";
+    return type === 'range';
   }
 
   onChange = (e, newValue) => {
@@ -33,7 +32,7 @@ export default class Control extends Component {
     }
 
     setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -42,9 +41,11 @@ export default class Control extends Component {
 
     const Input = this.isRange() ? Slider : 'input';
 
-    const rangeProps = this.isRange() ? {
-      valueLabelDisplay: "auto",
-    } : {};
+    const rangeProps = this.isRange()
+      ? {
+          valueLabelDisplay: 'auto',
+        }
+      : {};
 
     return (
       <div className="Control">
@@ -62,8 +63,9 @@ export default class Control extends Component {
             onChange={this.onChange}
           />
         </div>
-        {props.type !== "text" && 
-          <div className="Control-value">{value.toString()}</div>}
+        {props.type !== 'text' && (
+          <div className="Control-value">{value.toString()}</div>
+        )}
         {note && <div className="Control-note">{note}</div>}
       </div>
     );

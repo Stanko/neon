@@ -6,7 +6,7 @@ svg {
   @include lg {
     margin: 6%;
   }
-  
+
   @include xl {
     margin: 8%;
   }
@@ -31,7 +31,7 @@ path {
   filter: drop-shadow(1px 1px 0px black);
 }
 
-#marker-arrow path{
+#marker-arrow path {
   fill: #bbb;
 }
 

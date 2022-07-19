@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react';
 
-import Grid from "./Grid";
-import Vectors from "./Vectors";
-import Line from "./Line";
-import { saveAs } from "file-saver";
+import Grid from './Grid';
+import Vectors from './Vectors';
+import Line from './Line';
+import { saveAs } from 'file-saver';
 
-import generateVectors from "../utils/generate-vectors";
-import generateLines from "../utils/generate-lines";
+import generateVectors from '../utils/generate-vectors';
+import generateLines from '../utils/generate-lines';
 
 export default class Image extends Component {
   downloadSVG = () => {
@@ -56,7 +56,9 @@ export default class Image extends Component {
         </svg>`;
 
       const name =
-        'neon-' + window.location.hash.replace("#/", "").replace(/\//g, "-") + ".svg";
+        'neon-' +
+        window.location.hash.replace('#/', '').replace(/\//g, '-') +
+        '.svg';
       saveAs(`data:application/octet-stream;base64,${btoa(svg)}`, name);
     }, timeout);
   };
@@ -74,7 +76,7 @@ export default class Image extends Component {
       vectorsSeed,
       numberOfLines,
       colorsSeed,
-      searchRange
+      searchRange,
     } = this.props;
 
     const vectors = generateVectors(
@@ -105,7 +107,7 @@ export default class Image extends Component {
       <div className="Image">
         <svg
           viewBox={`0 0 ${imageWidth} ${imageHeight}`}
-          ref={el => (this.svgElement = el)}
+          ref={(el) => (this.svgElement = el)}
           xmlns="http://www.w3.org/2000/svg"
         >
           {debug && <Grid {...this.props} />}
@@ -125,8 +127,9 @@ export default class Image extends Component {
             Download SVG
           </button>
           <div className="Image-downloadNote">
-            Downloading files should be fixed. If it fails, please open an issue on GitHub with the url that failed.
-            Meanwhile, try Firefox or Safari (or manually copy SVG's code from dev tools).
+            Downloading files should be fixed. If it fails, please open an issue
+            on GitHub with the url that failed. Meanwhile, try Firefox or Safari
+            (or manually copy SVG's code from dev tools).
           </div>
         </div>
       </div>

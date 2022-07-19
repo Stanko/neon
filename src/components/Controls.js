@@ -1,29 +1,27 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react';
 
-import App from "./App";
-import Control from "./Control";
+import App from './App';
+import Control from './Control';
 
 import { generateRandomColor } from '../utils/generate-line';
 
 const HASH_PARAMS = [
-  "debug",
-  "numberOfColumns",
-  "numberOfRows",
-  "blockSize",
-  "maxVectorVelocity",
-  "numberOfLines",
-  "searchRange",
-  "vectorsSeed",
-  "linesSeed",
-  "colorsSeed"
+  'debug',
+  'numberOfColumns',
+  'numberOfRows',
+  'blockSize',
+  'maxVectorVelocity',
+  'numberOfLines',
+  'searchRange',
+  'vectorsSeed',
+  'linesSeed',
+  'colorsSeed',
 ];
 
-const BOOLEANS_PARAMS = ["debug"];
+const BOOLEANS_PARAMS = ['debug'];
 
 function getRandomString() {
-  return Math.random()
-    .toString(36)
-    .substr(2);
+  return Math.random().toString(36).substr(2);
 }
 
 export default class Controls extends Component {
@@ -41,10 +39,10 @@ export default class Controls extends Component {
       vectorsSeed: getRandomString(),
       linesSeed: getRandomString(),
       colorsSeed: getRandomString(),
-      ...this.getStateFromHash()
+      ...this.getStateFromHash(),
     };
 
-    window.addEventListener("hashchange", this.handleHashChange);
+    window.addEventListener('hashchange', this.handleHashChange);
   }
 
   componentDidMount() {
@@ -52,11 +50,11 @@ export default class Controls extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("hashchange", this.handleHashChange);
+    window.removeEventListener('hashchange', this.handleHashChange);
   }
 
   getStateFromHash() {
-    const params = window.location.hash.replace("#", "").split("/");
+    const params = window.location.hash.replace('#', '').split('/');
     params.shift();
 
     const state = {};
@@ -68,9 +66,9 @@ export default class Controls extends Component {
     let invalid = false;
 
     HASH_PARAMS.forEach((key, index) => {
-      if (typeof params[index] !== "undefined") {
+      if (typeof params[index] !== 'undefined') {
         state[key] = BOOLEANS_PARAMS.includes(key)
-          ? params[index] === "true"
+          ? params[index] === 'true'
           : params[index];
       } else {
         invalid = true;
@@ -91,35 +89,35 @@ export default class Controls extends Component {
   setHash = (partialState = {}) => {
     const hashState = {
       ...this.state,
-      ...partialState
+      ...partialState,
     };
 
     window.location.hash = HASH_PARAMS.reduce(
       (hash, key) => (hash += `/${hashState[key]}`),
-      ""
+      ''
     );
   };
 
   generateNewVectorSeed = () => {
     this.setHash({
-      vectorsSeed: getRandomString()
+      vectorsSeed: getRandomString(),
     });
   };
 
   generateNewLinesSeed = () => {
     this.setHash({
-      linesSeed: getRandomString()
+      linesSeed: getRandomString(),
     });
   };
 
   generateNewColorsSeed = () => {
     this.setHash({
-      colorsSeed: getRandomString()
+      colorsSeed: getRandomString(),
     });
   };
 
   reset = () => {
-    window.location.hash = "";
+    window.location.hash = '';
     window.location.reload();
   };
 
@@ -134,7 +132,7 @@ export default class Controls extends Component {
       numberOfRows,
       searchRange,
       vectorsSeed,
-      colorsSeed
+      colorsSeed,
     } = this.state;
 
     return (
@@ -142,18 +140,46 @@ export default class Controls extends Component {
         <div className="Controls">
           <h1 aria-label="Neon" className="Controls-title">
             <a href="/" className="Controls-titleLink">
-              <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">N</span>
-              <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">e</span>
-              <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">o</span>
-              <span style={{ color: generateRandomColor(Math.random) }} aria-hidden="true">n</span>
+              <span
+                style={{ color: generateRandomColor(Math.random) }}
+                aria-hidden="true"
+              >
+                N
+              </span>
+              <span
+                style={{ color: generateRandomColor(Math.random) }}
+                aria-hidden="true"
+              >
+                e
+              </span>
+              <span
+                style={{ color: generateRandomColor(Math.random) }}
+                aria-hidden="true"
+              >
+                o
+              </span>
+              <span
+                style={{ color: generateRandomColor(Math.random) }}
+                aria-hidden="true"
+              >
+                n
+              </span>
             </a>
           </h1>
           <div className="Controls-description">
-            <p>
-              Generative art piece made using 2d vector field.
-            </p>
-            <a style={{ color: generateRandomColor(Math.random) }} href="https://muffinman.io/blog/neon-generative-art-piece-made-using-2d-vector-field/">How Neon works</a>
-            <a style={{ color: generateRandomColor(Math.random) }} href="https://github.com/Stanko/neon">GitHub</a>
+            <p>Generative art piece made using 2d vector field.</p>
+            <a
+              style={{ color: generateRandomColor(Math.random) }}
+              href="https://muffinman.io/blog/neon-generative-art-piece-made-using-2d-vector-field/"
+            >
+              How Neon works
+            </a>
+            <a
+              style={{ color: generateRandomColor(Math.random) }}
+              href="https://github.com/Stanko/neon"
+            >
+              GitHub
+            </a>
           </div>
           <Control
             name="debug"

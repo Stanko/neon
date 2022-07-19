@@ -2,7 +2,6 @@ $breakpoint-md: 800px;
 $breakpoint-lg: 1200px;
 $breakpoint-xl: 1500px;
 
-
 @mixin md {
   @media (min-width: #{$breakpoint-md}) {
     @content;
@@ -20,4 +19,3 @@ $breakpoint-xl: 1500px;
     @content;
   }
 }
-

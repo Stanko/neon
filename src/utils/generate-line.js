@@ -1,9 +1,9 @@
-import seedrandom from "seedrandom";
+import seedrandom from 'seedrandom';
 
 export function generateRandomColor(rng) {
   const h = parseInt((rng() * 360 + 220) % 360, 10);
 
-  return `hsl(${ h }, 70%, 60%)`;
+  return `hsl(${h}, 70%, 60%)`;
 }
 
 function isDotInCircle(dot, circleCenter, radius) {
@@ -23,14 +23,14 @@ function getDistance(v1, v2) {
 function addVectors(v1, v2) {
   return {
     x: v1.x + v2.x,
-    y: v1.y + v2.y
+    y: v1.y + v2.y,
   };
 }
 
 function multiplyVector(v, factor) {
   return {
     x: v.x * factor,
-    y: v.y * factor
+    y: v.y * factor,
   };
 }
 
@@ -52,13 +52,13 @@ function getNextPoint(
       const yCoordinate = y * gridStep;
       const start = {
         x: xCoordinate,
-        y: yCoordinate
+        y: yCoordinate,
       };
 
       if (isDotInCircle(start, currentPoint, gridStep * searchRadiusFactor)) {
         nearVectors.push({
           start,
-          vector: vectors[x][y]
+          vector: vectors[x][y],
         });
       }
     }
@@ -70,7 +70,7 @@ function getNextPoint(
 
   let nextPoint = { ...currentPoint };
 
-  nearVectors.forEach(vector => {
+  nearVectors.forEach((vector) => {
     const distance = getDistance(currentPoint, vector.start) / gridStep;
 
     nextPoint = addVectors(
@@ -95,7 +95,15 @@ function getNextPoint(
   }
 
   if (line.length < 50) {
-    getNextPoint(nextPoint, line, vectors, gridSizeX, gridSizeY, gridStep, searchRadiusFactor);
+    getNextPoint(
+      nextPoint,
+      line,
+      vectors,
+      gridSizeX,
+      gridSizeY,
+      gridStep,
+      searchRadiusFactor
+    );
   }
 }
 
@@ -111,16 +119,24 @@ export default function generateLine(
 ) {
   const line = [startingPoint];
 
-  getNextPoint(startingPoint, line, vectors, numberOfColumns, numberOfRows, blockSize, searchRadiusFactor);
+  getNextPoint(
+    startingPoint,
+    line,
+    vectors,
+    numberOfColumns,
+    numberOfRows,
+    blockSize,
+    searchRadiusFactor
+  );
 
   const maxWidth = 5;
-  
+
   const widthRng = seedrandom(line.join(''));
 
   if (!strokeWidth) {
     strokeWidth = widthRng() * maxWidth + 1;
   }
-  
+
   line.strokeWidth = strokeWidth;
   line.color = generateRandomColor(colorRng);
 

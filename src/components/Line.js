@@ -1,32 +1,31 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 // https://medium.com/@francoisromain/smooth-a-svg-path-with-cubic-bezier-curves-e37b49d46c74
 
 // The smoothing ratio
-const smoothing = 0.2
+const smoothing = 0.2;
 
-// Properties of a line 
+// Properties of a line
 // I:  - pointA (array) [x,y]: coordinates
 //     - pointB (array) [x,y]: coordinates
 // O:  - (object) { length: l, angle: a }: properties of the line
 const lineProperties = (pointA, pointB) => {
-  const lengthX = pointB.x - pointA.x
-  const lengthY = pointB.y - pointA.y
+  const lengthX = pointB.x - pointA.x;
+  const lengthY = pointB.y - pointA.y;
 
   return {
     length: Math.sqrt(Math.pow(lengthX, 2) + Math.pow(lengthY, 2)),
-    angle: Math.atan2(lengthY, lengthX)
-  }
-}
+    angle: Math.atan2(lengthY, lengthX),
+  };
+};
 
-// Position of a control point 
+// Position of a control point
 // I:  - current (array) [x, y]: current point coordinates
 //     - previous (array) [x, y]: previous point coordinates
 //     - next (array) [x, y]: next point coordinates
 //     - reverse (boolean, optional): sets the direction
 // O:  - (array) [x,y]: a tuple of coordinates
 const controlPoint = (current, previous, next, reverse) => {
-
   // When 'current' is the first or last point of the array
   // 'previous' or 'next' don't exist.
   // Replace with 'current'
@@ -43,10 +42,10 @@ const controlPoint = (current, previous, next, reverse) => {
   // The control point position is relative to the current point
   const x = current.x + Math.cos(angle) * length;
   const y = current.y + Math.sin(angle) * length;
-  return { x, y }
-}
+  return { x, y };
+};
 
-// Create the bezier curve command 
+// Create the bezier curve command
 // I:  - point (array) [x,y]: current point coordinates
 //     - i (integer): index of 'point' in the array 'a'
 //     - a (array): complete array of points coordinates
@@ -58,33 +57,29 @@ const bezierCommand = (point, i, a) => {
   // end control point
   const cpe = controlPoint(point, a[i - 1], a[i + 1], true);
 
-  return `C ${cps.x},${cps.y} ${cpe.x},${cpe.y} ${point.x},${point.y}`
-}
+  return `C ${cps.x},${cps.y} ${cpe.x},${cpe.y} ${point.x},${point.y}`;
+};
 
 export default class Line extends Component {
   render() {
-    const { 
-      points, 
-      strokeWidth,
-      color,
-    } = this.props;
+    const { points, strokeWidth, color } = this.props;
 
     // build the d attributes by looping over the points
     const d = points.reduce((acc, point, i, a) => {
       if (i === 0) {
-        return `M ${ point.x },${ point.y }`;
+        return `M ${point.x},${point.y}`;
       }
 
-      return `${ acc } ${ bezierCommand(point, i, a) }`;
-    }, "");
+      return `${acc} ${bezierCommand(point, i, a)}`;
+    }, '');
 
     return (
-      <path 
-        className="Line" 
+      <path
+        className="Line"
         strokeLinecap="round"
-        stroke={ color } 
-        strokeWidth={ strokeWidth || 5 }
-        d={ d }
+        stroke={color}
+        strokeWidth={strokeWidth || 5}
+        d={d}
         fill="none"
       />
     );

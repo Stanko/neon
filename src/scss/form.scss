@@ -17,17 +17,17 @@ button {
   z-index: 10;
 
   &:hover {
-    color: #BBB;
+    color: #bbb;
     border-color: #555;
     cursor: pointer;
   }
-  
+
   &:active {
     transform: translateY(1px);
   }
-  
+
   &:focus {
-    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666,
+    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666;
   }
 }
 
@@ -35,7 +35,7 @@ button::-moz-focus-inner {
   border: 0;
 }
 
-input[type=text] {
+input[type='text'] {
   background: $background-color;
   border-radius: 2px;
   border: 1px solid #444;
@@ -47,16 +47,16 @@ input[type=text] {
   transition: all 300ms;
 
   &:hover {
-    color: #BBB;
+    color: #bbb;
     border-color: #555;
     cursor: pointer;
   }
-  
+
   &:active {
     transform: translateY(1px);
   }
-  
+
   &:focus {
-    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666,
+    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666;
   }
 }

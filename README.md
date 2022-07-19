@@ -10,7 +10,7 @@ If you end up using Neon, please let me know, I would love to see it in the wild
 
 ## Example image
 
-[![Image generated using Neon](example.svg)](https://neon.muffinman.io//#/false/15/15/50/50/110/5/k554ri7kipa/32fmz98huj9/qunuqveb03)
+[![Image generated using Neon](svg/example.svg)](https://neon.muffinman.io//#/false/15/15/50/50/110/5/k554ri7kipa/32fmz98huj9/qunuqveb03)
 
 ## Running it locally
 
