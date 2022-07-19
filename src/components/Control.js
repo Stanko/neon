@@ -58,7 +58,7 @@ export default class Control extends Component {
             {...rangeProps}
             name={name}
             id={name}
-            value={value}
+            value={this.isRange() ? parseFloat(value) : value}
             checked={this.isCheckbox() ? value : undefined}
             onChange={this.onChange}
           />
