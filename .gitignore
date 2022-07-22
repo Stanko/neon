@@ -1,5 +1,5 @@
-node_modules
-.cache
-dist
-*.DS_Store
-.parcel-cache
+node_modules/
+dist/
+dist-zipped/
+yarn.lock
+.DS_Store

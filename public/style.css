@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  color: #aaa;
+  background: #131317;
+  font-family: Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+svg {
+  width: 100vmin;
+  height: 100vmin;
+  display: block;
+  overflow: visible;
+}
+
+path {
+  stroke-linecap: round;
+  fill: none;
+}
+
+.animate-lines path {
+  transition: stroke-dashoffset 500ms linear, stroke-dasharray 500ms linear;
+}

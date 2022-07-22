@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 
-import Grid from './Grid';
-import Vectors from './Vectors';
 import Line from './Line';
 import { saveAs } from 'file-saver';
 
@@ -9,109 +7,129 @@ import generateVectors from '../utils/generate-vectors';
 import generateLines from '../utils/generate-lines';
 
 export default class Image extends Component {
-  downloadSVG = () => {
-    const { debug, setGlobalState, imageWidth, imageHeight } = this.props;
+  constructor(props) {
+    super(props);
 
-    const xFrameWidth = imageWidth / 5;
-    const yFrameWidth = imageHeight / 5;
+    const {
+      numberOfLines,
+      blockCount,
+      blockSize,
+      imageSize,
+      searchRange,
+      maxVectorVelocity,
+    } = props;
 
-    const frameWidth = xFrameWidth > yFrameWidth ? xFrameWidth : yFrameWidth;
-    const width = imageWidth + 2 * frameWidth;
-    const height = imageHeight + 2 * frameWidth;
+    const vectors = generateVectors(blockCount, blockCount, maxVectorVelocity);
 
-    let timeout = 0;
+    this.state = {
+      lines: generateLines(
+        numberOfLines,
+        blockCount,
+        blockCount,
+        blockSize,
+        imageSize,
+        imageSize,
+        vectors,
+        searchRange
+      ),
+    };
 
-    if (debug) {
-      // To give browser time to rerender the svg
-      timeout = 100;
-      setGlobalState({ debug: false });
+    this.handleKeyPres = this.handleKeyPres.bind(this);
+  }
+
+  componentDidMount() {
+    let index = 0;
+    const lines = document.querySelectorAll('.lines path');
+
+    lines.forEach((line) => {
+      line.style.strokeDasharray = line.getTotalLength();
+      line.style.strokeDashoffset = line.getTotalLength();
+    });
+
+    const STEP = 10;
+    const TRANSITION_DURATION = 500;
+
+    function animate() {
+      requestAnimationFrame(() => {
+        for (let i = index; i < index + STEP && i < lines.length; i++) {
+          const line = lines[i];
+          if (line) {
+            line.style.strokeDashoffset = 0;
+          } else {
+            console.log(i);
+          }
+        }
+
+        index += STEP;
+
+        if (index < lines.length + STEP) {
+          animate();
+        } else {
+          setTimeout(() => {
+            fxpreview();
+          }, TRANSITION_DURATION);
+        }
+      });
     }
 
-    setTimeout(() => {
-      const svg = `
-        <svg
-          viewBox="0 0 ${width} ${height}"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            x="0"
-            y="0"
-            width="${width}"
-            height="${height}"
-            fill="#1a1c1e"
-            stroke="none"
-          />
-          <rect
-            x="${frameWidth}"
-            y="${frameWidth}"
-            width="${imageWidth}"
-            height="${imageHeight}"
-            stroke="#444"
-            strokeWidth="1"
-            fill="none"
-          />
-          <g transform="translate(${frameWidth} ${frameWidth})">
-            ${this.svgElement ? this.svgElement.innerHTML : null}
-          </g>
-        </svg>`;
+    document.querySelector('.lines').classList.add('animate-lines');
+    animate();
 
-      const name =
-        'neon-' +
-        window.location.hash.replace('#/', '').replace(/\//g, '-') +
-        '.svg';
+    window.addEventListener('keydown', this.handleKeyPres);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyPres);
+  }
+
+  handleKeyPres(e) {
+    if (e.key === 's' || e.key === 'S') {
+      e.preventDefault();
+      this.downloadSVG();
+    }
+  }
+
+  downloadSVG = () => {
+    setTimeout(() => {
+      const svg = this.svgElement ? this.svgElement.outerHTML : null;
+
+      const name = `neon-${fxhash}.svg`;
       saveAs(`data:application/octet-stream;base64,${btoa(svg)}`, name);
-    }, timeout);
+    }, 0);
   };
 
   render() {
-    const {
-      blockSize,
-      debug,
-      imageHeight,
-      imageWidth,
-      linesSeed,
-      maxVectorVelocity,
-      numberOfColumns,
-      numberOfRows,
-      vectorsSeed,
-      numberOfLines,
-      colorsSeed,
-      searchRange,
-    } = this.props;
+    const { imageSize } = this.props;
 
-    const vectors = generateVectors(
-      vectorsSeed,
-      numberOfColumns,
-      numberOfRows,
-      maxVectorVelocity
-    );
+    const { lines } = this.state;
 
-    this.vectors = vectors;
-
-    const lines = generateLines(
-      linesSeed,
-      numberOfLines,
-      numberOfColumns,
-      numberOfRows,
-      blockSize,
-      imageWidth,
-      imageHeight,
-      vectors,
-      colorsSeed,
-      searchRange
-    );
-
-    this.lines = lines;
+    const padding = imageSize / 5;
+    const svgSize = imageSize + 2 * padding;
 
     return (
-      <div className="Image">
-        <svg
-          viewBox={`0 0 ${imageWidth} ${imageHeight}`}
-          ref={(el) => (this.svgElement = el)}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {debug && <Grid {...this.props} />}
-          {debug && <Vectors vectors={vectors} blockSize={blockSize} />}
+      <svg
+        viewBox={`0 0 ${svgSize} ${svgSize}`}
+        ref={(el) => (this.svgElement = el)}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="0"
+          y="0"
+          width={svgSize}
+          height={svgSize}
+          fill="#131317"
+          stroke="none"
+        />
+        <rect
+          x={padding}
+          y={padding}
+          width={imageSize}
+          height={imageSize}
+          stroke="#444"
+          strokeWidth="1"
+          fill="none"
+        />
+        <g transform={`translate(${padding} ${padding})`} className="lines">
           {lines.map((line, index) => (
             <Line
               key={index}
@@ -120,19 +138,8 @@ export default class Image extends Component {
               color={line.color}
             />
           ))}
-        </svg>
-
-        <div className="Image-downloadSection">
-          <button className="Image-generateDownload" onClick={this.downloadSVG}>
-            Download SVG
-          </button>
-          <div className="Image-downloadNote">
-            Downloading files should be fixed. If it fails, please open an issue
-            on GitHub with the url that failed. Meanwhile, try Firefox or Safari
-            (or manually copy SVG's code from dev tools).
-          </div>
-        </div>
-      </div>
+        </g>
+      </svg>
     );
   }
 }

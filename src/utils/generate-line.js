@@ -1,6 +1,6 @@
-import seedrandom from 'seedrandom';
+import random from './random';
 
-export function generateRandomColor(rng) {
+export function generateRandomColor(rng = fxrand) {
   const h = parseInt((rng() * 360 + 220) % 360, 10);
 
   return `hsl(${h}, 70%, 60%)`;
@@ -131,10 +131,8 @@ export default function generateLine(
 
   const maxWidth = 5;
 
-  const widthRng = seedrandom(line.join(''));
-
   if (!strokeWidth) {
-    strokeWidth = widthRng() * maxWidth + 1;
+    strokeWidth = fxrand() * maxWidth + 1;
   }
 
   line.strokeWidth = strokeWidth;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import random from '../utils/random';
 
 // https://medium.com/@francoisromain/smooth-a-svg-path-with-cubic-bezier-curves-e37b49d46c74
 
@@ -75,7 +76,7 @@ export default class Line extends Component {
 
     return (
       <path
-        className="Line"
+        className="line"
         strokeLinecap="round"
         stroke={color}
         strokeWidth={strokeWidth || 5}
