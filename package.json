@@ -1,9 +1,7 @@
 {
-  "name": "fxhash-boilerplate-webpack",
+  "name": "neon",
   "version": "1.0.0",
-  "description": "a boilerplate to create a generative token on fxhash",
-  "main": "index.js",
-  "author": "fxhash",
+  "author": "Stanko",
   "license": "MIT",
   "scripts": {
     "build": "webpack --config ./config/webpack.config.prod.js",
