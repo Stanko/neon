@@ -135,8 +135,8 @@ export default function generateLine(
     strokeWidth = fxrand() * maxWidth + 1;
   }
 
-  line.strokeWidth = strokeWidth;
-  line.color = generateRandomColor(colorRng);
-
-  return line;
+  return {
+    line,
+    strokeWidth,
+  };
 }

@@ -11,7 +11,8 @@
     "@material-ui/core": "^4.9.13",
     "file-saver": "^2.0.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "svg-path-properties": "^1.0.11"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.9",

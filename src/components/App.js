@@ -53,10 +53,9 @@ export default class Image extends Component {
       requestAnimationFrame(() => {
         for (let i = index; i < index + STEP && i < lines.length; i++) {
           const line = lines[i];
+
           if (line) {
             line.style.strokeDashoffset = 0;
-          } else {
-            console.log(i);
           }
         }
 
@@ -133,7 +132,9 @@ export default class Image extends Component {
           {lines.map((line, index) => (
             <Line
               key={index}
-              points={line}
+              points={line.points}
+              d={line.d}
+              circles={line.circles}
               strokeWidth={line.strokeWidth}
               color={line.color}
             />
