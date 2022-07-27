@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver';
 
 import generateVectors from '../utils/generate-vectors';
 import generateLines from '../utils/generate-lines';
+import random from '../utils/random';
 
 export default class Image extends Component {
   constructor(props) {
@@ -21,6 +22,17 @@ export default class Image extends Component {
 
     const vectors = generateVectors(blockCount, blockCount, maxVectorVelocity);
 
+    const circles = [];
+
+    for (let i = 1; i < 2000; i++) {
+      circles.push({
+        x: fxrand() * imageSize,
+        y: fxrand() * imageSize,
+        r: random(0.3, 2),
+        opacity: random(0.01, 0.15),
+      });
+    }
+
     this.state = {
       lines: generateLines(
         numberOfLines,
@@ -32,6 +44,7 @@ export default class Image extends Component {
         vectors,
         searchRange
       ),
+      circles,
     };
 
     this.handleKeyPres = this.handleKeyPres.bind(this);
@@ -100,7 +113,7 @@ export default class Image extends Component {
   render() {
     const { imageSize } = this.props;
 
-    const { lines } = this.state;
+    const { lines, circles } = this.state;
 
     const padding = imageSize / 5;
     const svgSize = imageSize + 2 * padding;
@@ -129,16 +142,31 @@ export default class Image extends Component {
           fill="none"
         />
         <g transform={`translate(${padding} ${padding})`} className="lines">
-          {lines.map((line, index) => (
-            <Line
-              key={index}
-              points={line.points}
-              d={line.d}
-              circles={line.circles}
-              strokeWidth={line.strokeWidth}
-              color={line.color}
-            />
-          ))}
+          <g id="lines">
+            {lines.map((line, index) => (
+              <Line
+                key={index}
+                points={line.points}
+                d={line.d}
+                circles={line.circles}
+                strokeWidth={line.strokeWidth}
+                color={line.color}
+              />
+            ))}
+          </g>
+          <g id="circles" fill="white">
+            {circles.map((circle, index) => {
+              return (
+                <circle
+                  key={index}
+                  cx={circle.x}
+                  cy={circle.y}
+                  r={circle.r}
+                  style={{ opacity: circle.opacity }}
+                />
+              );
+            })}
+          </g>
         </g>
       </svg>
     );
