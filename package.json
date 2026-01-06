@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html",
-    "build": "rm -rf dist && parcel build src/index.html"
+    "start": "vite dev",
+    "build": "vite build"
   },
   "repository": {
     "type": "git",
@@ -19,16 +18,14 @@
   "homepage": "https://github.com/Stanko/neon#readme",
   "dependencies": {
     "@material-ui/core": "^4.9.13",
-    "@types/react": "^17.0.2",
     "file-saver": "^2.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
-    "parcel": "^2.6.2",
-    "@babel/core": "^7.18.9",
-    "@parcel/transformer-sass": "^2.6.2",
-    "process": "^0.11.10"
+    "@vitejs/plugin-react": "^5.1.2",
+    "sass-embedded": "^1.97.2",
+    "vite": "^7.2.4"
   }
 }

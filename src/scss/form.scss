@@ -1,6 +1,8 @@
+@use "variables";
+
 .Button,
 button {
-  background: $background-color;
+  background: variables.$background-color;
   border-radius: 50px;
   border: 1px solid #444;
   color: #999;
@@ -27,7 +29,7 @@ button {
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666;
+    box-shadow: 0 0 0 2px variables.$background-color, 0 0 0 3px #666;
   }
 }
 
@@ -36,7 +38,7 @@ button::-moz-focus-inner {
 }
 
 input[type='text'] {
-  background: $background-color;
+  background: variables.$background-color;
   border-radius: 2px;
   border: 1px solid #444;
   color: #999;
@@ -57,6 +59,6 @@ input[type='text'] {
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px $background-color, 0 0 0 3px #666;
+    box-shadow: 0 0 0 2px variables.$background-color, 0 0 0 3px #666;
   }
 }

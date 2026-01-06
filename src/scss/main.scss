@@ -1,3 +1,6 @@
+@use "breakpoints";
+@use "variables";
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +8,7 @@
 }
 
 body {
-  background: $background-color;
+  background: variables.$background-color;
   color: #aaa;
   font-family: Helvetica, Arial, sans-serif;
 }
@@ -15,16 +18,16 @@ body {
   margin: 0 auto;
   padding: 20px;
 
-  @include md {
+  @include breakpoints.md {
     display: flex;
     padding: 30px;
   }
 
-  @include lg {
+  @include breakpoints.lg {
     padding: 40px;
   }
 
-  @include xl {
+  @include breakpoints.xl {
     padding: 50px;
   }
 }
@@ -34,7 +37,7 @@ body {
   width: 100%;
   margin-top: 60px;
 
-  @include md {
+  @include breakpoints.md {
     margin-top: 0;
   }
 }
@@ -45,15 +48,15 @@ body {
   z-index: 10;
   position: relative;
 
-  @include md {
+  @include breakpoints.md {
     margin-right: 30px;
   }
 
-  @include lg {
+  @include breakpoints.lg {
     margin-right: 40px;
   }
 
-  @include xl {
+  @include breakpoints.xl {
     margin-right: 50px;
   }
 }
